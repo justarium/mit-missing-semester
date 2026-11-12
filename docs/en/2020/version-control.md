@@ -1,14 +1,15 @@
 ---
 layout: lecture
 title: "Version Control (Git)"
+description: >
+  Learn Git's data model and how to use Git for version control and collaboration.
+thumbnail: /static/assets/thumbnails/2020/lec6.png
 date: 2020-01-22
 ready: true
 video:
   aspect: 56.25
   id: 2sjqTHE0zok
 ---
-
-<iframe src="https://www.youtube.com/embed/2sjqTHE0zok" frameborder="0" allowfullscreen></iframe>
 
 Version control systems (VCSs) are tools used to track changes to source code
 (or other collections of files and folders). As the name implies, these tools
@@ -51,13 +52,13 @@ starting with its data model and later covering the command-line interface.
 Once the data model is understood, the commands can be better understood in
 terms of how they manipulate the underlying data model.
 
-## Git's data model
+# Git's data model
 
 There are many ad-hoc approaches you could take to version control. Git has a
 well-thought-out model that enables all the nice features of version control,
 like maintaining history, supporting branches, and enabling collaboration.
 
-### Snapshots
+## Snapshots
 
 Git models the history of a collection of files and folders within some
 top-level directory as a series of snapshots. In Git terminology, a file is
@@ -79,7 +80,7 @@ example, we might have a tree as follows:
 The top-level tree contains two elements, a tree "foo" (that itself contains
 one element, a blob "bar.txt"), and a blob "baz.txt".
 
-### Modeling history: relating snapshots
+## Modeling history: relating snapshots
 
 How should a version control system relate snapshots? One simple model would be
 to have a linear history. A history would be a list of snapshots in time-order.
@@ -125,7 +126,7 @@ corrected, however; it's just that "edits" to the commit history are actually
 creating entirely new commits, and references (see below) are updated to point
 to the new ones.
 
-### Data model, as pseudocode
+## Data model, as pseudocode
 
 It may be instructive to see Git's data model written down in pseudocode:
 
@@ -147,7 +148,7 @@ type commit = struct {
 
 It's a clean, simple model of history.
 
-### Objects and content-addressing
+## Objects and content-addressing
 
 An "object" is a blob, tree, or commit:
 
@@ -155,7 +156,7 @@ An "object" is a blob, tree, or commit:
 type object = blob | tree | commit
 ```
 
-In Git data store, all objects are content-addressed by their [SHA-1
+In Git's data store, all objects are content-addressed by their [SHA-1
 hash](https://en.wikipedia.org/wiki/SHA-1).
 
 ```
@@ -191,7 +192,7 @@ the following:
 git is wonderful
 ```
 
-### References
+## References
 
 Now, all snapshots can be identified by their SHA-1 hashes. That's inconvenient,
 because humans aren't good at remembering strings of 40 hexadecimal characters.
@@ -226,7 +227,7 @@ history, so that when we take a new snapshot, we know what it is relative to
 (how we set the `parents` field of the commit). In Git, that "where we
 currently are" is a special reference called "HEAD".
 
-### Repositories
+## Repositories
 
 Finally, we can define what (roughly) is a Git _repository_: it is the data
 `objects` and `references`.
@@ -242,7 +243,7 @@ uncommitted changes and make the 'master' ref point to commit `5d83f9e`", there'
 probably a command to do it (e.g. in this case, `git checkout master; git reset
 --hard 5d83f9e`).
 
-## Staging area
+# Staging area
 
 This is another concept that's orthogonal to the data model, but it's a part of
 the interface to create commits.
@@ -262,15 +263,15 @@ Git accommodates such scenarios by allowing you to specify which modifications
 should be included in the next snapshot through a mechanism called the "staging
 area".
 
-## Git command-line interface
+# Git command-line interface
 
 To avoid duplicating information, we're not going to explain the commands below
 in detail. See the highly recommended [Pro Git](https://git-scm.com/book/en/v2)
 for more information, or watch the lecture video.
 
-### Basics
+## Basics
 
-<!-- {% comment %}
+{% comment %}
 
 The `git init` command initializes a new Git repository, with repository
 metadata being stored in the `.git` directory:
@@ -421,7 +422,7 @@ index 94bab17..f0013b2 100644
  +another line
 ```
 
-{% endcomment %} -->
+{% endcomment %}
 
 - `git help <command>`: get help for a git command
 - `git init`: creates a new git repo, with data stored in the `.git` directory
@@ -434,11 +435,11 @@ index 94bab17..f0013b2 100644
 - `git log --all --graph --decorate`: visualizes history as a DAG
 - `git diff <filename>`: show changes you made relative to the staging area
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD and current branch
+- `git checkout <revision>`: updates HEAD (and current branch if checking out a branch)
 
-### Branching and merging
+## Branching and merging
 
-<!-- {% comment %}
+{% comment %}
 
 Branching allows you to "fork" version history. It can be helpful for working
 on independent features or bug fixes in parallel. The `git branch` command can
@@ -449,7 +450,7 @@ Merging is the opposite of branching: it allows you to combine forked version
 histories, e.g. merging a feature branch back into master. The `git merge`
 command is used for merging.
 
-{% endcomment %} -->
+{% endcomment %}
 
 - `git branch`: shows branches
 - `git branch <name>`: creates a branch
@@ -459,7 +460,7 @@ command is used for merging.
 - `git mergetool`: use a fancy tool to help resolve merge conflicts
 - `git rebase`: rebase set of patches onto a new base
 
-### Remotes
+## Remotes
 
 - `git remote`: list remotes
 - `git remote add <name> <url>`: add a remote
@@ -469,13 +470,13 @@ command is used for merging.
 - `git pull`: same as `git fetch; git merge`
 - `git clone`: download repository from remote
 
-### Undo
+## Undo
 
 - `git commit --amend`: edit a commit's contents/message
 - `git reset HEAD <file>`: unstage a file
 - `git checkout -- <file>`: discard changes
 
-## Advanced Git
+# Advanced Git
 
 - `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
 - `git clone --depth=1`: shallow clone, without entire version history
@@ -486,7 +487,7 @@ command is used for merging.
 - `git bisect`: binary search history (e.g. for regressions)
 - `.gitignore`: [specify](https://git-scm.com/docs/gitignore) intentionally untracked files to ignore
 
-## Miscellaneous
+# Miscellaneous
 
 - **GUIs**: there are many [GUI clients](https://git-scm.com/downloads/guis)
 out there for Git. We personally don't use them and use the command-line
@@ -510,7 +511,7 @@ requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-r
 hosts, like [GitLab](https://about.gitlab.com/) and
 [BitBucket](https://bitbucket.org/).
 
-## Resources
+# Resources
 
 - [Pro Git](https://git-scm.com/book/en/v2) is **highly recommended reading**.
 Going through Chapters 1--5 should teach you most of what you need to use Git
@@ -530,7 +531,7 @@ words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words
 - [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
 game that teaches you Git.
 
-## Exercises
+# Exercises
 
 1. If you don't have any past experience with Git, either try reading the first
    couple chapters of [Pro Git](https://git-scm.com/book/en/v2) or go through a
@@ -561,10 +562,11 @@ class website](https://github.com/missing-semester/missing-semester).
    the `~/.gitconfig` file, or you can use the `git config` command to add the
    alias. Information about git aliases can be found
    [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
-1. You can define global ignore patterns in `~/.gitignore_global` after running
-   `git config --global core.excludesfile ~/.gitignore_global`. Do this, and
-   set up your global gitignore file to ignore OS-specific or editor-specific
-   temporary files, like `.DS_Store`.
+1. You can define global ignore patterns in` ~/.gitignore_global` after running
+   `git config --global core.excludesfile ~/.gitignore_global`. This sets the
+   location of the global ignore file that Git will use, but you still need to
+   manually create the file at that path. Set up your global gitignore file to
+   ignore OS-specific or editor-specific temporary files, like `.DS_Store`.
 1. Fork the [repository for the class
    website](https://github.com/missing-semester/missing-semester), find a typo
    or some other improvement you can make, and submit a pull request on GitHub

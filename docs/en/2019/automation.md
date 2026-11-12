@@ -2,12 +2,13 @@
 layout: lecture
 title: "Automation"
 presenter: Jose
+date: 2019-01-24
+order: 3
 video:
   aspect: 56.25
   id: BaLlAaHz-1k
+special: true
 ---
-
-<iframe src="https://www.youtube.com/embed/BaLlAaHz-1k" frameborder="0" allowfullscreen></iframe>
 
 Sometimes you write a script that does something but you want for it to run periodically, say a backup task. You can always write an *ad hoc* solution that runs in the background and comes online periodically. However, most UNIX systems come with the cron daemon which can run task with a frequency up to a minute based on simple rules.
 
@@ -67,7 +68,9 @@ One caveat of using cron is that if the computer is powered off or asleep when t
 
 1. Write a cron script to weekly check for outdated packages in your system and prompts you to update them or updates them automatically.
 
-<!-- {% comment %}
+
+
+{% comment %}
 
 - [fswatch](https://github.com/emcrisostomo/fswatch)
 - GUI automation (pyautogui) [Automating the boring stuff Chapter 18](https://automatetheboringstuff.com/chapter18/)
@@ -76,4 +79,4 @@ One caveat of using cron is that if the computer is powered off or asleep when t
 - https://xkcd.com/1205/
 - https://xkcd.com/1319/
 
-{% endcomment %} -->
+{% endcomment %}

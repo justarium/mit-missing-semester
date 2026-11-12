@@ -1,6 +1,9 @@
 ---
 layout: lecture
 title: "Debugging and Profiling"
+description: >
+  Learn how to debug programs using logging, debuggers, and static analysis, and how to profile code for performance.
+thumbnail: /static/assets/thumbnails/2020/lec7.png
 date: 2020-01-23
 ready: true
 video:
@@ -8,15 +11,13 @@ video:
   id: l812pUnKxME
 ---
 
-<iframe src="https://www.youtube.com/embed/l812pUnKxME" frameborder="0" allowfullscreen></iframe>
-
 A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do.
 Bridging that gap can sometimes be a quite difficult feat.
 In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
 
-## Debugging
+# Debugging
 
-### Printf debugging and Logging
+## Printf debugging and Logging
 
 "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
 
@@ -28,7 +29,7 @@ A second approach is to use logging in your program, instead of ad hoc print sta
 - Logging supports severity levels (such as INFO, DEBUG, WARN, ERROR, &c), that allow you to filter the output accordingly.
 - For new issues, there's a fair chance that your logs will contain enough information to detect what is going wrong.
 
-[Here](../../static/files/logger.py) is an example code that logs messages:
+[Here](/static/files/logger.py) is an example code that logs messages:
 
 ```bash
 $ python logger.py
@@ -58,7 +59,7 @@ for R in $(seq 0 20 255); do
 done
 ```
 
-### Third party logs
+## Third party logs
 
 As you start building larger software systems you will most probably run into dependencies that run as separate programs.
 Web servers, databases or message brokers are common examples of this kind of dependencies.
@@ -87,9 +88,9 @@ journalctl --since "1m ago" | grep Hello
 
 As we saw in the data wrangling lecture, logs can be quite verbose and they require some level of processing and filtering to get the information you want.
 If you find yourself heavily filtering through `journalctl` and `log show` you can consider using their flags, which can perform a first pass of filtering of their output.
-There are also some tools like  [`lnav`](http://lnav.org/), that provide an improved presentation and navigation for log files.
+There are also some tools like  [`lnav`](https://lnav.org/), that provide an improved presentation and navigation for log files.
 
-### Debuggers
+## Debuggers
 
 When printf debugging is not enough you should use a debugger.
 Debuggers are programs that let you interact with the execution of a program, allowing the following:
@@ -136,11 +137,11 @@ For more low level programming you will probably want to look into [`gdb`](https
 They are optimized for C-like language debugging but will let you probe pretty much any process and get its current machine state: registers, stack, program counter, &c.
 
 
-### Specialized Tools
+## Specialized Tools
 
 Even if what you are trying to debug is a black box binary there are tools that can help you with that.
 Whenever programs need to perform actions that only the kernel can, they use [System Calls](https://en.wikipedia.org/wiki/System_call).
-There are commands that let you trace the syscalls your program makes. In Linux there's [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) and macOS and BSD have [`dtrace`](http://dtrace.org/blogs/about/). `dtrace` can be tricky to use because it uses its own `D` language, but there is a wrapper called [`dtruss`](https://www.manpagez.com/man/1/dtruss/) that provides an interface more similar to `strace` (more details [here](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
+There are commands that let you trace the syscalls your program makes. In Linux there's [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) and macOS and BSD have [`dtrace`](https://dtrace.org/about/). `dtrace` can be tricky to use because it uses its own `D` language, but there is a wrapper called [`dtruss`](https://www.manpagez.com/man/1/dtruss/) that provides an interface more similar to `strace` (more details [here](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
 
 Below are some examples of using `strace` or `dtruss` to show [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) syscall traces for an execution of `ls`. For a deeper dive into `strace`, [this article](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) and [this zine](https://jvns.ca/strace-zine-unfolded.pdf) are good reads.
 
@@ -161,7 +162,7 @@ For web development, the Chrome/Firefox developer tools are quite handy. They fe
 - Network - Analyze the requests timeline.
 - Storage - Look into the Cookies and local application storage.
 
-### Static Analysis
+## Static Analysis
 
 For some issues you do not need to run any code.
 For example, just by carefully looking at a piece of code you could realize that your loop variable is shadowing an already existing variable or function name; or that a program reads a variable before defining it.
@@ -185,7 +186,7 @@ time.sleep(60)
 print(baz)
 ```
 
-Static analysis tools can identify these kinds of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](http://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
+Static analysis tools can identify these kinds of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](https://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
 Again, note that all these issues were detected without having to run the code.
 
 ```bash
@@ -213,13 +214,13 @@ A complementary tool to stylistic linting are code formatters such as [`black`](
 These tools autoformat your code so that it's consistent with common stylistic patterns for the given programming language.
 Although you might be unwilling to give stylistic control about your code, standardizing code format will help other people read your code and will make you better at reading other people's (stylistically standardized) code.
 
-## Profiling
+# Profiling
 
 Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process.
 Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs.
-Since [premature optimization is the root of all evil](http://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
 
-### Timing
+## Timing
 
 Similarly to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
 Here is an example in Python using the [`time`](https://docs.python.org/3/library/time.html) module.
@@ -258,9 +259,9 @@ user    0m0.015s
 sys     0m0.012s
 ```
 
-### Profilers
+## Profilers
 
-#### CPU
+### CPU
 
 Most of the time when people refer to _profilers_ they actually mean _CPU profilers_,  which are the most common.
 There are two main types of CPU profilers: _tracing_ and _sampling_ profilers.
@@ -363,7 +364,7 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
 11        24         33.0      1.4      0.0          urls.append(url['href'])
 ```
 
-#### Memory
+### Memory
 
 In languages like C or C++ memory leaks can cause your program to never release memory that it doesn't need anymore.
 To help in the process of memory debugging you can use tools like [Valgrind](https://valgrind.org/) that will help you identify memory leaks.
@@ -395,7 +396,7 @@ Line #    Mem usage  Increment   Line Contents
      8     13.61 MB    0.00 MB       return a
 ```
 
-#### Event Profiling
+### Event Profiling
 
 As it was the case for `strace` for debugging, you might want to ignore the specifics of the code that you are running and treat it like a black box when profiling.
 The [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) command abstracts CPU differences away and does not report time or memory, but instead it reports system events related to your programs.
@@ -407,15 +408,15 @@ For example, `perf` can easily report poor cache locality, high amounts of page 
 - `perf report` - Formats and prints the data collected in `perf.data`
 
 
-#### Visualization
+### Visualization
 
 Profiler output for real world programs will contain large amounts of information because of the inherent complexity of software projects.
 Humans are visual creatures and are quite terrible at reading large amounts of numbers and making sense of them.
 Thus there are many tools for displaying profiler's output in an easier to parse way.
 
-One common way to display CPU profiling information for sampling profilers is to use a [Flame Graph](http://www.brendangregg.com/flamegraphs.html), which will display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They are also interactive, letting you zoom into specific parts of the program and get their stack traces (try clicking in the image below).
+One common way to display CPU profiling information for sampling profilers is to use a [Flame Graph](https://www.brendangregg.com/flamegraphs.html), which will display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They are also interactive, letting you zoom into specific parts of the program and get their stack traces (try clicking in the image below).
 
-[![FlameGraph](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
+[![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
 Call graphs or control flow graphs display the relationships between subroutines within a program by including functions as nodes and functions calls between them as directed edges. When coupled with profiling information such as the number of calls and time taken, call graphs can be quite useful for interpreting the flow of a program.
 In Python you can use the [`pycallgraph`](https://pycallgraph.readthedocs.io/) library to generate them.
@@ -423,7 +424,7 @@ In Python you can use the [`pycallgraph`](https://pycallgraph.readthedocs.io/) l
 ![Call Graph](https://upload.wikimedia.org/wikipedia/commons/2/2f/A_Call_Graph_generated_by_pycallgraph.png)
 
 
-### Resource Monitoring
+## Resource Monitoring
 
 Sometimes, the first step towards analyzing the performance of your program is to understand what its actual resource consumption is.
 Programs often run slowly when they are resource constrained, e.g. without enough memory or on a slow network connection.
@@ -431,19 +432,19 @@ There are a myriad of command line tools for probing and displaying different sy
 
 - **General Monitoring** - Probably the most popular is [`htop`](https://htop.dev/), which is an improved version of [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html).
 `htop` presents various statistics for the currently running processes on the system. `htop` has a myriad of options and keybinds, some useful ones  are: `<F6>` to sort processes, `t` to show tree hierarchy and `h` to toggle threads.
-See also [`glances`](https://nicolargo.github.io/glances/) for similar implementation with a great UI. For getting aggregate measures across all processes, [`dstat`](http://dag.wiee.rs/home-made/dstat/) is another nifty tool that computes real-time resource metrics for lots of different subsystems like I/O, networking, CPU utilization, context switches, &c.
+See also [`glances`](https://nicolargo.github.io/glances/) for similar implementation with a great UI. For getting aggregate measures across all processes, [`dool`](https://github.com/scottchiefbaker/dool) is another nifty tool that computes real-time resource metrics for lots of different subsystems like I/O, networking, CPU utilization, context switches, &c.
 - **I/O operations** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information and is handy to check if a process is doing heavy I/O disk operations
-- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) displays metrics per partitions and [`du`](http://man7.org/linux/man-pages/man1/du.1.html) displays **d**isk **u**sage per file for the current directory. In these tools the `-h` flag tells the program to print with **h**uman readable format.
+- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) displays metrics per partitions and [`du`](https://man7.org/linux/man-pages/man1/du.1.html) displays **d**isk **u**sage per file for the current directory. In these tools the `-h` flag tells the program to print with **h**uman readable format.
 A more interactive version of `du` is [`ncdu`](https://dev.yorhel.nl/ncdu) which lets you navigate folders and delete files and folders as you navigate.
 - **Memory Usage** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays the total amount of free and used memory in the system. Memory is also displayed in tools like `htop`.
 - **Open Files** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html)  lists file information about files opened by processes. It can be quite useful for checking which process has opened a specific file.
-- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor incoming and outgoing network packets statistics as well as interface statistics. A common use case of `ss` is figuring out what process is using a given port in a machine. For displaying routing, network devices and interfaces you can use [`ip`](http://man7.org/linux/man-pages/man8/ip.8.html). Note that `netstat` and `ifconfig` have been deprecated in favor of the former tools respectively.
-- **Network Usage** -  [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](http://www.ex-parrot.com/pdw/iftop/) are good interactive CLI tools for monitoring network usage.
+- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor incoming and outgoing network packets statistics as well as interface statistics. A common use case of `ss` is figuring out what process is using a given port in a machine. For displaying routing, network devices and interfaces you can use [`ip`](https://man7.org/linux/man-pages/man8/ip.8.html). Note that `netstat` and `ifconfig` have been deprecated in favor of the former tools respectively.
+- **Network Usage** -  [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage.
 
 If you want to test these tools you can also artificially impose loads on the machine using the [`stress`](https://linux.die.net/man/1/stress) command.
 
 
-#### Specialized tools
+### Specialized tools
 
 Sometimes, black box benchmarking is all you need to determine what software to use.
 Tools like [`hyperfine`](https://github.com/sharkdp/hyperfine) let you quickly benchmark command line programs.
@@ -468,9 +469,9 @@ Summary
 As it was the case for debugging, browsers also come with a fantastic set of tools for profiling webpage loading, letting you figure out where time is being spent (loading, rendering, scripting, &c).
 More info for [Firefox](https://profiler.firefox.com/docs/) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
 
-## Exercises
+# Exercises
 
-### Debugging
+## Debugging
 1. Use `journalctl` on Linux or `log show` on macOS to get the super user accesses and commands in the last day.
 If there aren't any you can execute some harmless commands such as `sudo ls` and check again.
 
@@ -491,7 +492,7 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
 1. (Advanced) Read about [reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) and get a simple example working using [`rr`](https://rr-project.org/) or [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
 ## Profiling
 
-1. [Here](../../static/files/sorts.py) are some sorting algorithm implementations. Use [`cProfile`](https://docs.python.org/3/library/profile.html) and [`line_profiler`](https://github.com/pyutils/line_profiler) to compare the runtime of insertion sort and quicksort. What is the bottleneck of each algorithm? Use then `memory_profiler` to check the memory consumption, why is insertion sort better? Check now the inplace version of quicksort. Challenge: Use `perf` to look at the cycle counts and cache hits and misses of each algorithm.
+1. [Here](/static/files/sorts.py) are some sorting algorithm implementations. Use [`cProfile`](https://docs.python.org/3/library/profile.html) and [`line_profiler`](https://github.com/pyutils/line_profiler) to compare the runtime of insertion sort and quicksort. What is the bottleneck of each algorithm? Use then `memory_profiler` to check the memory consumption, why is insertion sort better? Check now the inplace version of quicksort. Challenge: Use `perf` to look at the cycle counts and cache hits and misses of each algorithm.
 
 1. Here's some (arguably convoluted) Python code for computing Fibonacci numbers using a function for each number.
 
@@ -513,7 +514,7 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
        print(eval("fib9()"))
    ```
 
-   Put the code into a file and make it executable. Install prerequisites: [`pycallgraph`](https://pycallgraph.readthedocs.io/) and [`graphviz`](http://graphviz.org/). (If you can run `dot`, you already have GraphViz.) Run the code as is with `pycallgraph graphviz -- ./fib.py` and check the `pycallgraph.png` file. How many times is `fib0` called?. We can do better than that by memoizing the functions. Uncomment the commented lines and regenerate the images. How many times are we calling each `fibN` function now?
+   Put the code into a file and make it executable. Install prerequisites: [`pycallgraph`](https://lewiscowles1986.github.io/py-call-graph/) and [`graphviz`](https://graphviz.org/). (If you can run `dot`, you already have GraphViz.) Run the code as is with `pycallgraph graphviz -- ./fib.py` and check the `pycallgraph.png` file. How many times is `fib0` called?. We can do better than that by memoizing the functions. Uncomment the commented lines and regenerate the images. How many times are we calling each `fibN` function now?
 
 1. A common issue is that a port you want to listen on is already taken by another process. Let's learn how to discover that process pid. First execute `python -m http.server 4444` to start a minimal web server listening on port `4444`. On a separate terminal run `lsof | grep LISTEN` to print all listening processes and ports. Find that process pid and terminate it by running `kill <PID>`.
 
@@ -522,3 +523,4 @@ Try running `stress -c 3` and visualize the CPU consumption with `htop`. Now, ex
 Challenge: achieve the same using [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Try limiting the memory consumption of `stress -m`.
 
 1. (Advanced) The command `curl ipinfo.io` performs a HTTP request and fetches information about your public IP. Open [Wireshark](https://www.wireshark.org/) and try to sniff the request and reply packets that `curl` sent and received. (Hint: Use the `http` filter to just watch HTTP packets).
+

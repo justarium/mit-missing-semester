@@ -1,16 +1,18 @@
 ---
 layout: lecture
 title: "Security and Cryptography"
+description: >
+  Learn about cryptographic primitives like hashes and key derivation functions, and understand how tools like Git and SSH use them.
+thumbnail: /static/assets/thumbnails/2020/lec9.png
 date: 2020-01-28
 ready: true
 video:
   aspect: 56.25
   id: tjwobAmnKTo
+special: true
 ---
 
-<iframe src="https://www.youtube.com/embed/tjwobAmnKTo" frameborder="0" allowfullscreen></iframe>
-
-Last year's [security and privacy lecture](../2019/security.md) focused on how you
+Last year's [security and privacy lecture](/2019/security/) focused on how you
 can be more secure as a computer _user_. This year, we will focus on security
 and cryptography concepts that are relevant in understanding tools covered
 earlier in this class, such as the use of hash functions in Git or key
@@ -97,7 +99,7 @@ different input `m_2` such that `hash(m_1) = hash(m_2)`.
 target collision resistance).
 
 Note: while it may work for certain purposes, SHA-1 is [no
-longer](https://shattered.io/) considered a strong cryptographic hash function.
+longer](https://web.archive.org/web/20260207211148/https://shattered.io/) considered a strong cryptographic hash function.
 You might find this table of [lifetimes of cryptographic hash
 functions](https://valerieaurora.org/hash.html) interesting. However, note that
 recommending specific hash functions is beyond the scope of this lecture. If you
@@ -235,7 +237,7 @@ model.
 ## Password managers
 
 This is an essential tool that everyone should try to use (e.g.
-[KeePassXC](https://keepassxc.org/), [pass](https://www.passwordstore.org/),
+[KeePassXC](https://keepassxc.org/), [pass](https://git.zx2c4.com/password-store/about/),
 and [1Password](https://1password.com)). Password managers make it convenient to use unique,
 randomly generated high-entropy passwords for all your logins, and they save
 all your passwords in one place, encrypted with a symmetric cipher with a key
@@ -276,10 +278,10 @@ social proofs (with Keybase).
 ## SSH
 
 We've covered the use of SSH and SSH keys in an [earlier
-lecture](command-line.md#remote-machines). Let's look at the cryptography
+lecture](/2020/command-line/#remote-machines). Let's look at the cryptography
 aspects of this.
 
-When you run `ssh-keygen`, it generates an asymmetric keypair, `public_key,
+When you run `ssh-keygen`, it generates an asymmetric key pair, `public_key,
 private_key`. This is generated randomly, using entropy provided by the
 operating system (collected from hardware events, etc.). The public key is
 stored as-is (it's public, so keeping it a secret is not important), but at
@@ -299,17 +301,17 @@ proves that the client is in possession of the private key corresponding to the
 public key that's in the server's `.ssh/authorized_keys` file, so the server
 can allow the client to log in.
 
-<!-- {% comment %}
+{% comment %}
 extra topics, if there's time
 
 security concepts, tips
 - biometrics
 - HTTPS
-{% endcomment %} -->
+{% endcomment %}
 
 # Resources
 
-- [Last year's notes](../2019/security.md): from when this lecture was more focused on security and privacy as a computer user
+- [Last year's notes](/2019/security/): from when this lecture was more focused on security and privacy as a computer user
 - [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): answers "what crypto should I use for X?" for many common X.
 
 # Exercises

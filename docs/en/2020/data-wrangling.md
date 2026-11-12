@@ -1,14 +1,16 @@
 ---
 layout: lecture
 title: "Data Wrangling"
+description: >
+  Learn how to manipulate and transform data using command-line tools like sed, awk, and regular expressions.
+thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true
 video:
   aspect: 56.25
   id: sz_dsktIjt4
+special: true
 ---
-
-<iframe src="https://www.youtube.com/embed/sz_dsktIjt4" frameborder="0" allowfullscreen></iframe>
 
 Have you ever wanted to take data in one format and turn it into a
 different format? Of course you have! That, in very general terms, is
@@ -83,12 +85,12 @@ ssh myserver journalctl
 
 What we just wrote was a simple _regular expression_; a powerful
 construct that lets you match text against patterns. The `s` command is
-written on the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
+written in the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
 regular expression you want to search for, and `SUBSTITUTION` is the
 text you want to substitute matching text with.
 
 (You may recognize this syntax from the "Search and replace" section of our Vim
-[lecture notes](editors.md#advanced-vim)! Indeed, Vim uses a syntax for
+[lecture notes](/2020/editors/#advanced-vim)! Indeed, Vim uses a syntax for
 searching and replacing that is similar to `sed`'s substitution command.
 Learning one tool often helps you become more proficient with others.)
 
@@ -167,7 +169,7 @@ characters where the username is. Then we're matching on any single word
 "port" followed by a sequence of digits. Then possibly the suffix
 `[preauth]`, and then the end of the line.
 
-Notice that with this technique, as username of "Disconnected from"
+Notice that with this technique, a username of "Disconnected from"
 won't confuse us any more. Can you see why?
 
 There is one problem with this though, and that is that the entire log
@@ -247,7 +249,7 @@ wouldn't matter, but we're here to learn!
 If we wanted the _least_ common ones, we could use `head` instead of
 `tail`. There's also `sort -r`, which sorts in reverse order.
 
-Okay, so that's pretty cool, but what if we'd like these extract only the usernames
+Okay, so that's pretty cool, but what if we'd like to extract only the usernames
 as a comma-separated list instead of one per line, perhaps for a config file?
 
 ```bash
@@ -262,7 +264,7 @@ ssh myserver journalctl
 
 If you're using macOS: note that the command as shown won't work with the BSD
 `paste` shipped with macOS. See [exercise 4 from the shell tools
-lecture](shell-tools.md#exercises) for more on the difference between BSD
+lecture](/2020/shell-tools/#exercises) for more on the difference between BSD
 and GNU coreutils and instructions for how to install GNU coreutils on macOS.
 
 Let's start with `paste`: it lets you combine lines (`-s`) by a given
@@ -311,7 +313,7 @@ matches the end). Now, the per-line block just adds the count from the
 first field (although it'll always be 1 in this case), and then we print
 it out at the end. In fact, we _could_ get rid of `grep` and `sed`
 entirely, because `awk` [can do it
-all](https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
+all](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
 leave that as an exercise to the reader.
 
 ## Analyzing data
@@ -391,7 +393,7 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -'
 ```
 
-## Exercises
+# Exercises
 
 1. Take this [short interactive regex tutorial](https://regexone.com/).
 2. Find the number of words (in `/usr/share/dict/words`) that contain at
@@ -435,7 +437,7 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
    your friend). And finally, eliminate any line whose count is 3 (since
    it _was_ shared among all the boots).
 6. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab), [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
    or maybe one [from
    here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).

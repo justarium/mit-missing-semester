@@ -2,14 +2,14 @@
 layout: lecture
 title: "Course Overview"
 presenter: Anish
+date: 2019-01-15
+order: 1
 video:
   aspect: 56.25
   id: qw2c6ffSVOM
 ---
 
-<iframe src="https://www.youtube.com/embed/qw2c6ffSVOM" frameborder="0" allowfullscreen></iframe>
-
-## Motivation
+# Motivation
 
 This class is about [hacker](https://en.wikipedia.org/wiki/Hacker_culture)
 tools, not [hacker](https://en.wikipedia.org/wiki/Security_hacker) tools.
@@ -21,9 +21,9 @@ time is very short).
 We want to teach you about new tools, how to make the most of your tools, how
 to customize your tools, and how to extend your tools.
 
-## Class structure
+# Class structure
 
-We have 6 lectures covering a [variety of topics](index.md). We have lecture
+We have 6 lectures covering a [variety of topics](/2019/). We have lecture
 notes online, but there will be a lot of content covered in class (e.g. in the
 form of demos) that may not be in the notes. We will be recording lectures.
 

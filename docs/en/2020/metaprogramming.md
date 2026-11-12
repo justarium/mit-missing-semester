@@ -1,6 +1,9 @@
 ---
 layout: lecture
 title: "Metaprogramming"
+description: >
+  Learn about build systems, dependency management, testing, and continuous integration.
+thumbnail: /static/assets/thumbnails/2020/lec8.png
 details: build systems, dependency management, testing, CI
 date: 2020-01-27
 ready: true
@@ -8,8 +11,6 @@ video:
   aspect: 56.25
   id: _Ms1Z4xfqv4
 ---
-
-<iframe src="https://www.youtube.com/embed/_Ms1Z4xfqv4" frameborder="0" allowfullscreen></iframe>
 
 What do we mean by "metaprogramming"? Well, it was the best collective
 term we could come up with for the set of things that are more about
@@ -24,7 +25,7 @@ programs](https://en.wikipedia.org/wiki/Metaprogramming)", whereas that
 is not quite the definition we are using for the purposes of this
 lecture.
 
-## Build systems
+# Build systems
 
 If you write a paper in LaTeX, what are the commands you need to run to
 produce your paper? What about the ones used to run your benchmarks,
@@ -164,7 +165,7 @@ pdflatex paper.tex
 Notice that `make` did _not_ re-run `plot.py` because that was not
 necessary; none of `plot-data.png`'s dependencies changed!
 
-## Dependency management
+# Dependency management
 
 At a more macro level, your software projects are likely to have
 dependencies that are themselves projects. You might depend on installed
@@ -174,7 +175,7 @@ dependencies will be available through a _repository_ that hosts a
 large number of such dependencies in a single place, and provides a
 convenient mechanism for installing them. Some examples include the
 Ubuntu package repositories for Ubuntu system packages, which you access
-through the `apt` tool, RubyGems for Ruby libraries, PyPi for Python
+through the `apt` tool, RubyGems for Ruby libraries, PyPI for Python
 libraries, or the Arch User Repository for Arch Linux user-contributed
 packages.
 
@@ -238,7 +239,7 @@ it, and lets you introduce your own changes to it, but also means you
 have to explicitly pull in any updates from the upstream maintainers
 over time.
 
-## Continuous integration systems
+# Continuous integration systems
 
 As you work on larger and larger projects, you'll find that there are
 often additional tasks you have to do whenever you make a change to it.
@@ -270,7 +271,7 @@ GitHub domain. This makes it trivial for us to update the website! We
 just make our changes locally, commit them with git, and then push. CI
 takes care of the rest.
 
-### A brief aside on testing
+## A brief aside on testing
 
 Most large software projects come with a "test suite". You may already
 be familiar with the general concept of testing, but we thought we'd
@@ -287,7 +288,7 @@ you may encounter in the wild:
    implementation to avoid testing unrelated functionality. For example,
    you might "mock the network" or "mock the disk".
 
-## Exercises
+# Exercises
 
  1. Most makefiles provide a target called `clean`. This isn't intended
     to produce a file called `clean`, but instead to clean up any files

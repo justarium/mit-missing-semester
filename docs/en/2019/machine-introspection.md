@@ -2,12 +2,13 @@
 layout: lecture
 title: "Machine Introspection"
 presenter: Jon
+date: 2019-01-24
+order: 4
 video:
   aspect: 56.25
   id: eNYT2Oq3PF8
+special: true
 ---
-
-<iframe src="https://www.youtube.com/embed/eNYT2Oq3PF8" frameborder="0" allowfullscreen></iframe>
 
 Sometimes, computers misbehave. And very often, you want to know why.
 Let's look at some tools that help you do that!
@@ -15,7 +16,7 @@ Let's look at some tools that help you do that!
 But first, let's make sure you're able to do introspection. Often,
 system introspection requires that you have certain privileges, like
 being the member of a group (like `power` for shutdown). The `root` user
-is the ultimate privilege; they can do pretty much anything. You can run
+has the ultimate privilege; they can do pretty much anything. You can run
 a command as `root` (but be careful!) using `sudo`.
 
 ## What happened?
@@ -62,10 +63,10 @@ log files. `journalctl -f`, `dmesg -w`, and `tail -f` are you friends
 here.
 
 Sometimes, you want to know more about the resources being used overall
-on your system. [`dstat`](http://dag.wiee.rs/home-made/dstat/) is
+on your system. [`dool`](https://github.com/scottchiefbaker/dool) is
 excellent for that. It gives you real-time resource metrics for lots of
 different subsystems like I/O, networking, CPU utilization, context
-switches, and the like. `man dstat` is the place to start.
+switches, and the like. `man dool` is the place to start.
 
 If you're running out of disk space, there are two primary utilities
 you'll want to know about: `df` and `du`. The former shows you the
@@ -82,7 +83,7 @@ port numbers.
 
 ## System configuration
 
-There are _many_ ways to configure your system, but we'll got through
+There are _many_ ways to configure your system, but we'll go through
 two very common ones: networking and services. Most applications on your
 system tell you how to configure them in their manpage, and usually it
 will involve editing files in `/etc`; the system configuration
@@ -118,12 +119,3 @@ application's log. You can also use `systemctl status` to see how all
 your system services are doing. If your boot feels slow, it's probably
 due to a couple of slow services, and you can use `systemd-analyze` (try
 it with `blame`) to figure out which ones.
-
-## Exercises
-
-- `locate`?
-- `dmidecode`?
-- `tcpdump`?
-- `/boot`?
-- `iptables`?
-- `/proc`?

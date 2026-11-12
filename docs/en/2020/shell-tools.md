@@ -1,6 +1,9 @@
 ---
 layout: lecture
 title: "Shell Tools and Scripting"
+description: >
+  Learn how to write shell scripts and use powerful command-line tools.
+thumbnail: /static/assets/thumbnails/2020/lec2.png
 date: 2020-01-14
 ready: true
 video:
@@ -8,11 +11,9 @@ video:
   id: kgII-YWo3Zw
 ---
 
-<iframe src="https://www.youtube.com/embed/kgII-YWo3Zw" frameborder="0" allowfullscreen></iframe>
-
 In this lecture, we will present some of the basics of using bash as a scripting language along with a number of shell tools that cover several of the most common tasks that you will be constantly performing in the command line.
 
-## Shell Scripting
+# Shell Scripting
 
 So far we have seen how to execute commands in the shell and pipe them together.
 However, in many scenarios you will want to perform a series of commands and make use of control flow expressions like conditionals or loops.
@@ -116,7 +117,7 @@ done
 
 In the comparison we tested whether `$?` was not equal to 0.
 Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
+When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](https://mywiki.wooledge.org/BashFAQ/031).
 
 When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
 - Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
@@ -168,12 +169,12 @@ For this example the shebang line would look like `#!/usr/bin/env python`.
 Some differences between shell functions and scripts that you should keep in mind are:
 - Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
 - Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
+- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Environment variables which have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html) are passed by value to scripts.
 - As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
 
-## Shell Tools
+# Shell Tools
 
-### Finding how to use commands
+## Finding how to use commands
 
 At this point, you might be wondering how to find the flags for the commands in the aliasing section such as `ls -l`, `mv -i` and `mkdir -p`.
 More generally, given a command, how do you go about finding out what it does and its different options?
@@ -191,7 +192,7 @@ Sometimes manpages can provide overly detailed descriptions of the commands, mak
 For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.inbrowser.app/pages/common/tar) and [`ffmpeg`](https://tldr.inbrowser.app/pages/common/ffmpeg) way more often than the manpages.
 
 
-### Finding files
+## Finding files
 
 One of the most common repetitive tasks that every programmer faces is finding files or directories.
 All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
@@ -211,8 +212,9 @@ This property can be incredibly helpful to simplify what could be fairly monoton
 ```bash
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
+
 # Find all PNG files and convert them to JPG
-find . -name '*.png' -exec convert {} {}.jpg \;
+find . -name '*.png' -exec magick {} {}.jpg \;
 ```
 
 Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
@@ -231,7 +233,7 @@ Therefore one trade-off between the two is speed vs freshness.
 Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
 A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
 
-### Finding code
+## Finding code
 
 Finding files by name is useful, but quite often you want to search based on file *content*.
 A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
@@ -259,7 +261,7 @@ rg --stats PATTERN
 
 Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
 
-### Finding shell commands
+## Finding shell commands
 
 So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
 The first thing to know is that typing the up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
@@ -285,7 +287,7 @@ You can modify your shell's history behavior, like preventing commands with a le
 To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
 If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zsh_history`.
 
-### Directory Navigation
+## Directory Navigation
 
 So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
 There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
@@ -297,7 +299,7 @@ By default, `fasd` adds a `z` command that you can use to quickly `cd` using a s
 
 More complex tools exist to quickly get an overview of a directory structure: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger).
 
-## Exercises
+# Exercises
 
 1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
 
@@ -315,15 +317,16 @@ More complex tools exist to quickly get an overview of a directory structure: [`
     -rw-r--r--   1 user group 106M Jan 13 12:12 foo
     drwx------+ 47 user group 1.5K Jan 12 18:08 ..
     ```
-<!-- {% comment %}
+
+{% comment %}
 ls -lath --color=auto
-{% endcomment %} -->
+{% endcomment %}
 
 1. Write bash functions  `marco` and `polo` that do the following.
 Whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`.
 For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
 
-<!-- {% comment %}
+{% comment %}
 marco() {
     export MARCO=$(pwd)
 }
@@ -331,7 +334,7 @@ marco() {
 polo() {
     cd "$MARCO"
 }
-{% endcomment %} -->
+{% endcomment %}
 
 1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run.
 Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end.
@@ -351,7 +354,7 @@ Bonus points if you can also report how many runs it took for the script to fail
     echo "Everything went according to plan"
     ```
 
-<!-- {% comment %}
+{% comment %}
 #!/usr/bin/env bash
 
 count=0
@@ -363,7 +366,7 @@ done
 
 echo "found error after $count runs"
 cat out.txt
-{% endcomment %} -->
+{% endcomment %}
 
 1. As we covered in the lecture `find`'s `-exec` can be very powerful for performing operations over the files we are searching for.
 However, what if we want to do something with **all** the files, like creating a zip file?

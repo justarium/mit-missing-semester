@@ -2,12 +2,12 @@
 layout: lecture
 title: "Data Wrangling"
 presenter: Jon
+date: 2019-01-17
+order: 2
 video:
   aspect: 56.25
   id: VW2jn9Okjhw
 ---
-
-<iframe src="https://www.youtube.com/embed/VW2jn9Okjhw" frameborder="0" allowfullscreen></iframe>
 
 Have you ever had a bunch of text and wanted to do something with it?
 Good. That's what data wrangling is all about!
@@ -288,7 +288,7 @@ matches the end). Now, the per-line block just adds the count from the
 first field (although it'll always be 1 in this case), and then we print
 it out at the end. In fact, we _could_ get rid of `grep` and `sed`
 entirely, because `awk` [can do it
-all](https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
+all](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
 leave that as an exercise to the reader.
 
 ## Analyzing data
@@ -344,7 +344,7 @@ so far + `xargs` can be a powerful combo:
 rustup toolchain list | grep nightly | grep -vE "nightly-x86|01-17" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
 ```
 
-## Exercises
+# Exercises
 
 1. If you are not familiar with Regular Expressions
    [here](https://regexone.com/) is a short interactive tutorial that
@@ -376,7 +376,7 @@ rustup toolchain list | grep nightly | grep -vE "nightly-x86|01-17" | sed 's/-x8
    of those two-letter combinations are there? And for a challenge:
    which combinations do not occur?
 1. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm) or [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab) or [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1).
    Maybe another one [from
    here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
