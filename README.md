@@ -8,3 +8,4 @@ A Fork of MIT Course “The Missing Semester of Your CS Education” (2019/2020/
 - 简体中文: 
     - https://github.com/missing-semester-cn/missing-semester-cn.github.io
     - https://missing-semester-cn.github.io/
+    - https://github.com/missing-semester-cn/missing-notes-and-solutions
