@@ -47,7 +47,7 @@ index: 7
     然后在 vim 执行`:PlugInstall`安装插件
     ![1.png](images/7/2.png)
     在需要检查的 shell 脚本中，执行`:Neomake` 即可进行 shellcheck 检查。然后光标移动到对应行时可以看到告警或错误。
-    ![1.png](images/7/3.png)
+    <!-- ![1.png](images/7/3.png) -->
 
 1. (进阶题) 请阅读 [可逆调试](https://undo.io/resources/reverse-debugging-whitepaper/) 并尝试创建一个可以工作的例子（使用 [`rr`](https://rr-project.org/) 或 [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html)）。
 

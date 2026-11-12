@@ -338,7 +338,7 @@ surface hidden assumptions that others need to understand too.
 With the growing use of LLMs and AI across software engineering, the
 social and professional norms around are still in flux. We already
 covered many of the tactical considerations in the [agentic coding
-lecture](/2026/agentic-coding/), but there are also "softer" parts of
+lecture](agentic-coding.md), but there are also "softer" parts of
 their use that are worth discussing.
 
 The first of these is that when AI meaningfully contributed to your

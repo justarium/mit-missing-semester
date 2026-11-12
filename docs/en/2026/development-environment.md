@@ -169,7 +169,7 @@ The best way to learn Vim is to learn the fundamentals (what we've covered so fa
 
 #### Additional resources
 
-- The [Vim lecture](/2020/editors/) from the previous iteration of this class --- we have covered Vim in more depth there
+- The [Vim lecture](../2020/editors.md) from the previous iteration of this class --- we have covered Vim in more depth there
 - `vimtutor` is a tutorial that comes installed with Vim --- if Vim is installed, you should be able to run `vimtutor` from your shell
 - [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
 - [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
@@ -190,11 +190,11 @@ IDEs generally offer language-specific support that requires semantic understand
 - **Jump-to-definition.** Jumping from a use site to the definition, such as being able to go from a field reference `object.field` to the definition of the field.
 - **Find references.** The inverse of the above, find all sites where a particular item such as a field or type is referenced.
 - **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
-- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
+- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](code-quality.md).
 
 ### Configuring language servers
 
-For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](/2026/shipping-code/).
+For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](shipping-code.md).
 
 Depending on the language, there might be some settings you can configure for your language server. For example, using the Python support in VS Code, you can disable static type checking for projects that don't make use of Python's optional type annotations.
 
@@ -283,7 +283,7 @@ def download_contents(url: str) -> str:
 
 ### Coding agents
 
-Coding agents are covered in depth in the [Agentic Coding](/2026/agentic-coding/) lecture.
+Coding agents are covered in depth in the [Agentic Coding](agentic-coding.md) lecture.
 
 ### Recommended software
 
@@ -293,7 +293,7 @@ Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-cop
 
 IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
 
-- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
+- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](shipping-code.md) covers containers in more depth.
 - Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
 - Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
 

@@ -169,7 +169,7 @@ def main():
 
 #### 更多资源 {#additional-resources}
 
-- 本课程上一轮迭代中的 [Vim 讲义](/2020/editors/)；我们在那里更深入地讲解了 Vim
+- 本课程上一轮迭代中的 [Vim 讲义](../2020/editors.md)；我们在那里更深入地讲解了 Vim
 - `vimtutor` 是随 Vim 一起安装的教程；如果装了 Vim，你应该可以直接在 Shell 里运行 `vimtutor`
 - [Vim Adventures](https://vim-adventures.com/) 是一个学习 Vim 的游戏
 - [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
@@ -190,11 +190,11 @@ IDE 通常会通过扩展提供语言特定支持，而这些功能需要对代�
 - **跳转到定义。** 从使用位置跳转到定义位置，例如从字段引用 `object.field` 跳到该字段的定义。
 - **查找引用。** 和上面相反，查找某个条目（例如字段或类型）被引用的所有位置。
 - **导入辅助。** 整理 imports、移除未使用 imports、标记缺失 imports。
-- **代码质量。** 这些工具可以单独使用，但这类能力通常也由语言服务器提供。代码格式化会在你输入时自动缩进和整理格式，而类型检查器与 linter 会在你输入时发现代码中的错误。我们会在[代码质量](/2026/code-quality/)一讲中更深入地介绍这类功能。
+- **代码质量。** 这些工具可以单独使用，但这类能力通常也由语言服务器提供。代码格式化会在你输入时自动缩进和整理格式，而类型检查器与 linter 会在你输入时发现代码中的错误。我们会在[代码质量](code-quality.md)一讲中更深入地介绍这类功能。
 
 ### 配置语言服务器 {#configuring-language-servers}
 
-对于某些语言，你只需要安装扩展和语言服务器，就万事俱备了。对另一些语言来说，若想把语言服务器的价值发挥到最大，你还需要告诉 IDE 你的环境信息。比如，让 VS Code 指向你的 [Python 环境](https://code.visualstudio.com/docs/python/environments)，就能让语言服务器看到你已安装的包。关于环境，我们会在[代码打包与发布](/2026/shipping-code/)一讲中更详细地介绍。
+对于某些语言，你只需要安装扩展和语言服务器，就万事俱备了。对另一些语言来说，若想把语言服务器的价值发挥到最大，你还需要告诉 IDE 你的环境信息。比如，让 VS Code 指向你的 [Python 环境](https://code.visualstudio.com/docs/python/environments)，就能让语言服务器看到你已安装的包。关于环境，我们会在[代码打包与发布](shipping-code.md)一讲中更详细地介绍。
 
 根据不同语言，你还可以为语言服务器配置一些设置。例如，在 VS Code 中使用 Python 支持时，你可以为那些没有使用 Python 可选类型注解的项目禁用静态类型检查。
 
@@ -283,7 +283,7 @@ def download_contents(url: str) -> str:
 
 ### 编程代理 {#coding-agents}
 
-我们会在[Agentic Coding](/2026/agentic-coding/)一讲中深入介绍编程代理。
+我们会在[Agentic Coding](agentic-coding.md)一讲中深入介绍编程代理。
 
 ### 推荐软件 {#recommended-software}
 
@@ -293,7 +293,7 @@ def download_contents(url: str) -> str:
 
 IDE 本身已经是很强大的工具，而 _扩展_ 会让它们更加强大。我们不可能在一节课里覆盖所有这些功能，但这里会先给出几个常见扩展的线索。我们鼓励你自己继续探索这一空间；网上有很多 IDE 热门扩展清单，例如针对 Vim 插件的 [Vim Awesome](https://vimawesome.com/)，以及[按安装量排序的 VS Code 扩展列表](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs)。
 
-- [Development containers](https://containers.dev/)：主流 IDE 都支持它们（例如 [VS Code 就支持](https://code.visualstudio.com/docs/devcontainers/containers)）。dev containers 让你可以使用容器来运行开发工具，这对可移植性或隔离性都很有帮助。我们会在[代码打包与发布](/2026/shipping-code/)一讲中更深入地介绍容器。
+- [Development containers](https://containers.dev/)：主流 IDE 都支持它们（例如 [VS Code 就支持](https://code.visualstudio.com/docs/devcontainers/containers)）。dev containers 让你可以使用容器来运行开发工具，这对可移植性或隔离性都很有帮助。我们会在[代码打包与发布](shipping-code.md)一讲中更深入地介绍容器。
 - 远程开发：通过 SSH 在远程机器上进行开发（例如使用 [VS Code 的 Remote SSH 插件](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)）。例如，如果你想在云上一台性能很强的 GPU 机器上开发和运行代码，这会非常方便。
 - 协作编辑：像 Google Docs 一样编辑同一个文件（例如使用 [VS Code 的 Live Share 插件](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)）。
 

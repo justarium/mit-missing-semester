@@ -6,11 +6,15 @@ description: >
 ---
 
 <!-- {% comment %} pop to remove default "posts" collection {% endcomment %} -->
-{% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
+<!-- {% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
 <ul>
 {% for collection in sorted_collections %}
     <li><a href="/{{ collection.label }}/">{{ collection.label }}</a></li>
 {% endfor %}
-</ul>
+</ul> -->
+
+- [2026](2026/index.md)
+- [2020](2020/index.md)
+- [2019](2019/index.md)
 
 Each year's lectures are fully self-contained. We recommend starting with the most recent version of the material. There is variation in the topics covered year to year, so we continue to host notes and videos for earlier versions of this course.

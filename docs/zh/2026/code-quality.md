@@ -28,7 +28,7 @@ video:
 
 代码自动格式化工具会自动美化表层语法。这样你就可以专注于更深层、更有挑战性的问题，而把字符串用 `'` 还是 `"`、二元运算符两边是否留空格（`x + y` 而不是 `x+y`）、`import` 是否按序排序、避免过长行等琐碎细节交给自动格式化工具处理。代码格式化器的一个主要好处是能在整个代码库的所有开发者之间统一代码风格。
 
-有些工具如 Prettier [高度可配置](https://prettier.io/docs/configuration)；你应该把配置文件一并提交到项目的[版本控制](/2026/version-control/)中。另一些如 [Black](https://github.com/psf/black) 和 [gofmt](https://pkg.go.dev/cmd/gofmt) 配置项有限或完全不可配置，以减少[自行车棚问题](https://en.wikipedia.org/wiki/Law_of_triviality)。
+有些工具如 Prettier [高度可配置](https://prettier.io/docs/configuration)；你应该把配置文件一并提交到项目的[版本控制](version-control.md)中。另一些如 [Black](https://github.com/psf/black) 和 [gofmt](https://pkg.go.dev/cmd/gofmt) 配置项有限或完全不可配置，以减少[自行车棚问题](https://en.wikipedia.org/wiki/Law_of_triviality)。
 
 可以为代码格式化器配置 [IDE 集成](/2026/development-environment/#code-intelligence-and-language-servers)，让代码在输入时或保存文件时自动格式化。也可以在项目中加入 [EditorConfig](https://editorconfig.org/) 文件，向 IDE 传达某些项目级设置，如不同文件类型的缩进大小。
 
@@ -85,7 +85,7 @@ Git 的 pre-commit [钩子](https://git-scm.com/book/en/v2/Customizing-Git-Git-H
 
 ### 持续部署
 
-持续部署利用 CI 基础设施来真正 _部署_ 变更。比如 Missing Semester 仓库就用持续部署到 GitHub Pages，每次 `git push` 更新后的讲义时，网站自动构建并部署。你也可以在 CI 中构建其他类型的[产物](/2026/shipping-code/)，比如应用程序二进制文件或服务的 Docker 镜像。
+持续部署利用 CI 基础设施来真正 _部署_ 变更。比如 Missing Semester 仓库就用持续部署到 GitHub Pages，每次 `git push` 更新后的讲义时，网站自动构建并部署。你也可以在 CI 中构建其他类型的[产物](shipping-code.md)，比如应用程序二进制文件或服务的 Docker 镜像。
 
 ## 命令运行器
 
@@ -157,10 +157,10 @@ _正则表达式_，通常缩写为 “regex”，是一种用来表示字符串
 
 ## 练习
 
-1. 为你正在进行的一个项目配置格式化器、linter 和 pre-commit 钩子。如果你有很多错误：自动格式化应当能够处理格式错误。对于 linter 错误，试着使用一个 [AI agent](/2026/agentic-coding/) 来修复所有 linter 错误。确保这个 AI agent 能运行 linter 并观察结果，这样它就可以在迭代循环中修复所有问题。仔细检查结果，确保 AI 没有破坏你的代码！
-1. 学习一种你熟悉语言的测试库，并为你正在进行的一个项目编写一个单元测试。运行代码覆盖率工具，生成 HTML 格式的覆盖率报告，并观察结果。你能找到哪些行被覆盖了吗？你的代码覆盖率很可能会很低。尝试手动编写一些测试来改进它。也试着使用一个 [AI agent](/2026/agentic-coding/) 来提高覆盖率；确保这个 coding agent 能以带覆盖率的方式运行测试，并生成逐行覆盖率报告，这样它才知道该聚焦在哪里。AI 生成的测试真的好吗？
+1. 为你正在进行的一个项目配置格式化器、linter 和 pre-commit 钩子。如果你有很多错误：自动格式化应当能够处理格式错误。对于 linter 错误，试着使用一个 [AI agent](agentic-coding.md) 来修复所有 linter 错误。确保这个 AI agent 能运行 linter 并观察结果，这样它就可以在迭代循环中修复所有问题。仔细检查结果，确保 AI 没有破坏你的代码！
+1. 学习一种你熟悉语言的测试库，并为你正在进行的一个项目编写一个单元测试。运行代码覆盖率工具，生成 HTML 格式的覆盖率报告，并观察结果。你能找到哪些行被覆盖了吗？你的代码覆盖率很可能会很低。尝试手动编写一些测试来改进它。也试着使用一个 [AI agent](agentic-coding.md) 来提高覆盖率；确保这个 coding agent 能以带覆盖率的方式运行测试，并生成逐行覆盖率报告，这样它才知道该聚焦在哪里。AI 生成的测试真的好吗？
 1. 为你正在进行的一个项目设置持续集成，并让它在每次 push 时运行。让 CI 运行格式化、lint 和测试。故意把你的代码弄坏（例如，引入一条 linter 违规），并确认 CI 能抓到它。
-1. 试着写一个[正则表达式](#正则表达式)，并使用 `grep` [命令行工具](/2026/course-shell/) 在你的代码中查找 `subprocess.Popen(..., shell=True)` 的出现位置。然后，试着“破坏”这个 regex 模式。[semgrep](#lint) 是否仍然能成功匹配到那些会让你的 grep 调用失效的危险代码？
+1. 试着写一个[正则表达式](#正则表达式)，并使用 `grep` [命令行工具](course-shell.md) 在你的代码中查找 `subprocess.Popen(..., shell=True)` 的出现位置。然后，试着“破坏”这个 regex 模式。[semgrep](#lint) 是否仍然能成功匹配到那些会让你的 grep 调用失效的危险代码？
 1. 在你的 IDE 或文本编辑器里练习 regex 查找替换，把[这些讲义](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/code-quality.md)中的 `-` [Markdown 项目符号标记](https://spec.commonmark.org/0.31.2/#bullet-list-marker)替换为 `*` 项目符号标记。注意，直接替换文件中所有的 `-` 字符是不正确的，因为该字符在文件中还有很多并非项目符号标记的用途。
 1. 写一个 regex，从形如 `{"name": "Alyssa P. Hacker", "college": "MIT"}` 的 JSON 结构中捕获 name（例如本例中的 `Alyssa P. Hacker`）。提示：在第一次尝试时，你可能最终会写出一个提取 `Alyssa P. Hacker", "college": "MIT` 的 regex；读一读 [Python regex 文档](https://docs.python.org/3/library/re.html)中关于贪婪量词的内容，弄清楚如何修复它。
     1. 让这个 regex 模式在 name 中包含 `"` 字符时也能工作（在 JSON 中，双引号可以用 `\"` 转义）。

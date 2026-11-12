@@ -418,7 +418,7 @@ Host *.mit.edu
 
 # 课后练习
 
-[习题解答]({{site.url}}/{{site.solution_url}}/{{page.solution.url}})
+[习题解答](./solutions/command-line-solution.md)
 
 ## 任务控制
 

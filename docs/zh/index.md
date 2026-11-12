@@ -6,7 +6,7 @@ description: >
 subtitle: IAP 2026
 ---
 
-# The Missing Semester of Your CS Education 中文版
+## The Missing Semester of Your CS Education 中文版
 
 大学里的计算机课程通常专注于讲授从操作系统到机器学习这些学院派的课程或主题，而对于如何精通工具这一主题则往往会留给学生自行探索。在这个系列课程中，我们讲授命令行、强大的文本编辑器的使用、使用版本控制系统提供的多种特性等等。学生在他们受教育阶段就会和这些工具朝夕相处（在他们的职业生涯中更是这样）。
 
@@ -20,14 +20,14 @@ subtitle: IAP 2026
 
 <!-- {% comment %}
 
-# Registration
+## Registration
 
 Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
 {% endcomment %} -->
 
-# 课程安排
+## 课程安排
 
-## 2026年课程
+### 2026年课程
 
 <!-- <ul>
 {% assign lectures = site['2026'] | sort: 'date' %}
@@ -55,7 +55,7 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 *   **1/22/26**: [不止于代码](2026/beyond-code.md)
 *   **1/23/26**: [代码质量](2026/code-quality.md)
 
-## 2020年课程
+### 2020年课程
 <!-- 
 <ul>
 {% assign lectures = site['2020'] | sort: 'date' %}
@@ -87,13 +87,13 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 
 讲座视频可以在 [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L) (2026) 或 [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) (2020) 上找到。
 
-# 关于本课程
+## 关于本课程
 
 **教员**：本课程由 [Anish](https://anish.io/)、[Jon](https://thesquareplanet.com/) 和 [Jose](https://josejg.com/) 讲授。
 
 **问题**：请通过 [missing-semester@mit.edu](mailto:missing-semester@mit.edu) 联系我们。
 
-# 在 MIT 之外
+## 在 MIT 之外
 
 我们也将本课程分享到了 MIT 之外，希望其他人也能受益于这些资源。您可以在下面这些地方找到相关文章和讨论。
 
@@ -107,7 +107,7 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
  - LinkedIn ([2026](https://www.linkedin.com/posts/anishathalye_i-returned-to-mit-during-iap-january-term-activity-7430285026933522433-Ehr9))
  - YouTube ([2026](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L), [2020](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J))
 
-# 翻译版本
+## 翻译版本
 
 - [阿拉伯语](https://missing-semester-ar.github.io/)
 - [孟加拉语](https://missing-semester-bn.github.io/)
@@ -130,13 +130,13 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 
 注意：上述链接为社区翻译，我们并未验证其内容。
 
-## 致谢
+### 致谢
 
 
 
 感谢 Elaine Mello 和 [MIT Open Learning](https://openlearning.mit.edu/) 让我们能够录制讲座视频。感谢 Luis Turino / [SIPB](https://sipb.mit.edu/) 作为 [SIPB IAP 2026](https://sipb.mit.edu/iap/) 的一部分支持本课程。
 
-## 中文翻译贡献者
+### 中文翻译贡献者
 [![贡献者](https://contrib.rocks/image?repo=missing-semester-cn/missing-semester-cn.github.io)](https://github.com/missing-semester-cn/missing-semester-cn.github.io/graphs/contributors)
 
 ---
