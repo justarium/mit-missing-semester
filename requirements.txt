@@ -3,3 +3,6 @@ mkdocs-materialx>=10.2.0
 markdown-gfm-admonition>=0.3.0
 mkdocs-static-i18n[materialx]@git+https://github.com/hantang/pydocs-i18n.git@v1.3.3
 # mkdocs-static-i18n
+# mkdocs-macros-plugin
+# mkdocs-github-admonitions-plugin
+mkdocs-callouts>=1.17.1

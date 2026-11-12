@@ -71,6 +71,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
+  - nl2br
+  - admonition
+  - pymdownx.details
 
 extra_javascript:
   - static/js/katex.js
@@ -82,9 +85,8 @@ extra_css:
 
 plugins:
   - search
-
-plugins:
-  - search
+  - callouts:
+      aliases: true
   - i18n:
       docs_structure: folder # suffix
       fallback_to_default: true
@@ -107,6 +109,7 @@ plugins:
             Solutions: 习题解答
             Introduction: 课程简介
             License: 许可证
+            Past: 往期课程
           theme:
             palette:
               - media: "(prefers-color-scheme: light)"
@@ -119,29 +122,16 @@ plugins:
 nav:
   - Home: index.md
   - Lectures:
-    - Introduction: 2020/index.md
-    - 2020/course-shell.md
-    - 2020/shell-tools.md
-    - 2020/editors.md
-    - 2020/data-wrangling.md
-    - 2020/command-line.md
-    - 2020/version-control.md
-    - 2020/debugging-profiling.md 
-    - 2020/metaprogramming.md
-    - 2020/security.md
-    - 2020/potpourri.md
-    - 2020/qa.md
-  - Solutions:
-    - 2020/solutions/index.md
-    - 2020/solutions/course-shell-solution.md
-    - 2020/solutions/shell-tools-solution.md
-    - 2020/solutions/editors-solution.md
-    - 2020/solutions/data-wrangling-solution.md
-    - 2020/solutions/command-line-solution.md
-    - 2020/solutions/version-control-solution.md
-    - 2020/solutions/debugging-profiling-solution.md 
-    - 2020/solutions/metaprogramming-solution.md
-    - 2020/solutions/security-solution.md
+    - Introduction: 2026/index.md
+    - 2026/course-shell.md
+    - 2026/command-line-environment.md
+    - 2026/development-environment.md
+    - 2026/debugging-profiling.md
+    - 2026/version-control.md
+    - 2026/shipping-code.md
+    - 2026/agentic-coding.md
+    - 2026/beyond-code.md
+    - 2026/code-quality.md
   - Archive:
     - 2019 Lectures: 
       - 2019/index.md
@@ -162,5 +152,30 @@ nav:
       - 2019/remote-machines.md
       - 2019/web.md
       - 2019/security.md
+    - 2020 Lectures:
+      - Introduction: 2020/index.md
+      - 2020/course-shell.md
+      - 2020/shell-tools.md
+      - 2020/editors.md
+      - 2020/data-wrangling.md
+      - 2020/command-line.md
+      - 2020/version-control.md
+      - 2020/debugging-profiling.md 
+      - 2020/metaprogramming.md
+      - 2020/security.md
+      - 2020/potpourri.md
+      - 2020/qa.md
+    - 2020 Solutions:
+      - 2020/solutions/index.md
+      - 2020/solutions/course-shell-solution.md
+      - 2020/solutions/shell-tools-solution.md
+      - 2020/solutions/editors-solution.md
+      - 2020/solutions/data-wrangling-solution.md
+      - 2020/solutions/command-line-solution.md
+      - 2020/solutions/version-control-solution.md
+      - 2020/solutions/debugging-profiling-solution.md 
+      - 2020/solutions/metaprogramming-solution.md
+      - 2020/solutions/security-solution.md
+  - Past: past.md
   - About: about.md
   - License: license.md
