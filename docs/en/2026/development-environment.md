@@ -24,7 +24,7 @@ In this lecture, we'll cover:
 
 [vs-code]: https://code.visualstudio.com/
 
-# Text editing and Vim
+## Text editing and Vim
 
 When programming, you spend most of your time navigating through code, reading snippets of code, and making edits to code, rather than writing long streams or reading files top-to-bottom. [Vim] is a text editor that is optimized for this distribution of tasks.
 
@@ -32,7 +32,7 @@ When programming, you spend most of your time navigating through code, reading s
 
 **Vim support in other software.** You don't have to use [Vim] itself to benefit from the ideas at its core. Many programs that involve any kind of text editing support "Vim mode", either as built-in functionality or as a plugin. For example, VS Code has the [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin, Zsh has [built-in support](https://zsh.sourceforge.io/Guide/zshguide04.html) for Vim emulation, and even Claude Code has [built-in support](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) for Vim editor mode. Chances are that any tool you use that involves text editing supports Vim mode in one way or another.
 
-## Modal editing
+### Modal editing
 
 Vim is a _modal editor_: it has different operating modes for different classes of tasks.
 
@@ -50,15 +50,15 @@ You change modes by pressing `<ESC>` (the escape key) to switch from any mode ba
 
 You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to Escape ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) or create an [alternative mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>` with a simple key sequence.
 
-## Basics: inserting text
+### Basics: inserting text
 
 From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any other text editor, until you press `<ESC>` to return to Normal mode. This, along with the basics explained above, are all you need to start editing files using Vim (though not particularly efficiently, if you're spending all your time editing from Insert mode).
 
-## Vim's interface is a programming language
+### Vim's interface is a programming language
 
 Vim's interface is a programming language. Keystrokes (with mnemonic names) are commands, and these commands _compose_. This enables efficient movement and edits, especially once the commands become muscle memory, just like typing becomes super efficient once you've learned your keyboard layout.
 
-### Movement
+#### Movement
 
 You should spend most of your time in Normal mode, using movement commands to navigate the file. Movements in Vim are also called "nouns", because they refer to chunks of text.
 
@@ -76,7 +76,7 @@ You should spend most of your time in Normal mode, using movement commands to na
     - `,` / `;` for navigating matches
 - Search: `/{regex}`, `n` / `N` for navigating matches
 
-### Selection
+#### Selection
 
 Visual modes:
 
@@ -86,7 +86,7 @@ Visual modes:
 
 Can use movement keys to make selection.
 
-### Edits
+#### Edits
 
 Everything that you used to do with the mouse, you now do with the keyboard using editing commands that compose with movement commands. Here's where Vim's interface starts to look like a programming language. Vim's editing commands are also called "verbs", because verbs act on nouns.
 
@@ -107,7 +107,7 @@ Everything that you used to do with the mouse, you now do with the keyboard usin
 - `p` to paste
 - Lots more to learn: for example, `~` flips the case of a character, and `J` joins together lines
 
-### Counts
+#### Counts
 
 You can combine nouns and verbs with a count, which will perform a given action a number of times.
 
@@ -115,7 +115,7 @@ You can combine nouns and verbs with a count, which will perform a given action 
 - `5j` move 5 lines down
 - `7dw` delete 7 words
 
-### Modifiers
+#### Modifiers
 
 You can use modifiers to change the meaning of a noun. Some modifiers are `i`, which means "inner" or "inside", and `a`, which means "around".
 
@@ -123,7 +123,7 @@ You can use modifiers to change the meaning of a noun. Some modifiers are `i`, w
 - `ci[` change the contents inside the current pair of square brackets
 - `da'` delete a single-quoted string, including the surrounding single quotes
 
-## Putting it all together
+### Putting it all together
 
 Here is a broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementation:
 
@@ -163,11 +163,11 @@ We use the following sequence of commands to fix the issues, beginning in Normal
     - `ci"` to **c**hange **i**nside the '**"**', change to `"buzz"`
     - `<ESC>` to go back to Normal mode
 
-## Learning Vim
+### Learning Vim
 
 The best way to learn Vim is to learn the fundamentals (what we've covered so far) and then just enable Vim mode in all your software and start using it in practice. Avoid the temptation to use the mouse or the arrow keys; in some editors, you can unbind the arrow keys to force yourself to build good habits.
 
-### Additional resources
+#### Additional resources
 
 - The [Vim lecture](/2020/editors/) from the previous iteration of this class --- we have covered Vim in more depth there
 - `vimtutor` is a tutorial that comes installed with Vim --- if Vim is installed, you should be able to run `vimtutor` from your shell
@@ -181,7 +181,7 @@ The best way to learn Vim is to learn the fundamentals (what we've covered so fa
 
 [Vim]: https://www.vim.org/
 
-# Code intelligence and language servers
+## Code intelligence and language servers
 
 IDEs generally offer language-specific support that requires semantic understanding of the code through IDE extensions that connect to _language servers_ that implement [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). For example, the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) relies on [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), and the [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) relies on the first-party [gopls](https://go.dev/gopls/). By installing the extension and language server for the languages you work with, you can enable many language-specific features in your IDE, such as:
 
@@ -192,19 +192,19 @@ IDEs generally offer language-specific support that requires semantic understand
 - **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
 - **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
 
-## Configuring language servers
+### Configuring language servers
 
 For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](/2026/shipping-code/).
 
 Depending on the language, there might be some settings you can configure for your language server. For example, using the Python support in VS Code, you can disable static type checking for projects that don't make use of Python's optional type annotations.
 
-# AI-powered development
+## AI-powered development
 
 Since the introduction of [GitHub Copilot][github-copilot] using OpenAI's [Codex model](https://openai.com/index/openai-codex/) in mid 2021, [LLMs](https://en.wikipedia.org/wiki/Large_language_model) have become widely adopted in software engineering. There are three main form factors in use right now: autocomplete, inline chat, and coding agents.
 
 [github-copilot]: https://github.com/features/copilot/ai-code-editor
 
-## Autocomplete
+### Autocomplete
 
 AI-powered autocomplete has the same form factor as traditional autocomplete in your IDE, suggesting completions at your cursor position as you type. Sometimes, it's used as a passive feature that "just works". Beyond that, AI autocomplete is generally [prompted](https://en.wikipedia.org/wiki/Prompt_engineering) using code comments.
 
@@ -261,7 +261,7 @@ For demonstration purposes, we can complete the script:
 print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
 ```
 
-## Inline chat
+### Inline chat
 
 Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
 
@@ -281,15 +281,15 @@ def download_contents(url: str) -> str:
         return response.read().decode('utf-8')
 ```
 
-## Coding agents
+### Coding agents
 
 Coding agents are covered in depth in the [Agentic Coding](/2026/agentic-coding/) lecture.
 
-## Recommended software
+### Recommended software
 
 Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-copilot] extension and [Cursor](https://cursor.com/). GitHub Copilot is currently available [for free for students](https://github.com/education/students), teachers, and maintainers of popular open source projects. This is a rapidly evolving space. Many of the leading products have roughly equivalent functionality.
 
-# Extensions and other IDE functionality
+## Extensions and other IDE functionality
 
 IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
 
@@ -297,7 +297,7 @@ IDEs are powerful tools, made even more powerful by _extensions_. We can't cover
 - Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
 - Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
 
-# Exercises
+## Exercises
 
 1. Enable Vim mode in all the software you use that supports it, such as your editor and your shell, and use Vim mode for all your text editing for the next month. Whenever something seems inefficient, or when you think "there must be a better way", try Googling it, there probably is a better way.
 1. Complete a challenge from [VimGolf](https://www.vimgolf.com/).

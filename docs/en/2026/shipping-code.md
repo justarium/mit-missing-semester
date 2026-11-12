@@ -31,7 +31,7 @@ In this lecture, we'll cover:
 
 We'll explain these concepts through examples from the Python ecosystem, as concrete examples are helpful for understanding. While the tools are different for other programming language ecosystems, the concepts will largely be the same.
 
-# Dependencies & Environments
+## Dependencies & Environments
 
 In modern software development, layers of abstraction are ubiquitous.
 Programs naturally offload logic to other libraries or services.
@@ -175,7 +175,7 @@ This helps when you need to test your code across multiple Python versions or wh
 > [!TIP]
 > In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
 
-# Artifacts & Packaging
+## Artifacts & Packaging
 
 In software development we differentiate between source code and artifacts. Developers write and read source code, while artifacts are the packaged, distributable outputs produced from that source code --- ready to be installed or deployed.
 An artifact can be as simple as a file of code that we run, and as complex as an entire Virtual Machine that contains all the necessary bits and bobs of an application.
@@ -291,7 +291,7 @@ Installing a prebuilt binary means downloading an artifact that was already comp
 For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/releases) shows prebuilt binaries for Linux (x86_64, ARM), macOS (Intel, Apple Silicon), and Windows.
 
 
-# Releases & Versioning
+## Releases & Versioning
 
 Code is built in a continuous process but is released on a discrete basis.
 In software development there is a clear distinction between development and production environments.
@@ -337,7 +337,7 @@ Version specifiers exist across many package managers (npm, cargo, etc.) with va
 Not all software uses semantic versioning. A common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
 
 
-# Reproducibility
+## Reproducibility
 
 In modern software development the code you write sits atop a significant number of layers of abstraction.
 This includes things like your programming language runtime, third party libraries, the operating system, or even the hardware itself.
@@ -385,7 +385,7 @@ We can address this by using continuous integration pipelines (we'll see more in
 Even with CI testing in place, issues still occur when upgrading software versions, often because of the inevitable mismatch between dev and prod environments.
 In those circumstances the best course of action is to have a _rollback_ plan, where the version upgrade is reverted and a known good version is redeployed instead.
 
-# VMs & Containers
+## VMs & Containers
 
 As you start relying on more complex dependencies, it is likely that the dependencies of your code will span beyond the boundaries of what the package manager can handle.
 One common reason is having to interface with specific system libraries or hardware drivers.
@@ -451,7 +451,7 @@ Docker has important limitations to be aware of. First, container images are oft
 > [!TIP]
 > These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
 
-# Configuration
+## Configuration
 
 Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale.
 Software configuration should not be embedded in the code but be provided at runtime.
@@ -485,7 +485,7 @@ Among the many configuration options there is often sensitive data such as API k
 Secrets need to be handled with care to avoid exposing them accidentally, and must not be included in version control.
 
 
-# Services & Orchestration
+## Services & Orchestration
 
 Modern applications rarely exist in isolation. A typical web application might need a database for persistent storage, a cache for performance, a message queue for background tasks, and various other supporting services. Rather than bundling everything into a single monolithic application, modern architectures often decompose functionality into separate services that can be developed, deployed, and scaled independently.
 
@@ -497,7 +497,7 @@ This is commonly referred to as a microservice architecture where each component
 [Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container applications. Rather than managing containers individually, you declare all services in a single YAML file and orchestrate them together. Now our full application encompasses more than one container:
 
 ```yaml
-# docker-compose.yml
+## docker-compose.yml
 services:
   web:
     build: .
@@ -523,7 +523,7 @@ Docker Compose lets us declare how we want to deploy one or more services, and h
 For production deployments, you often want your docker compose services to start automatically on boot and restart on failure. A common approach is to use systemd to manage the docker compose deployment:
 
 ```ini
-# /etc/systemd/system/myapp.service
+## /etc/systemd/system/myapp.service
 [Unit]
 Description=My Application
 Requires=docker.service
@@ -555,7 +555,7 @@ $ curl https://api.anthropic.com/v1/messages \
          "messages": [{"role": "user", "content": "Explain containers vs VMs in one sentence."}]}'
 ```
 
-# Publishing
+## Publishing
 
 Once you have shown your code to work, you might be interested in distributing it for others to download and install.
 Distribution takes many forms and is intrinsically tied to the programming language and environments that you operate with.
@@ -570,13 +570,13 @@ While the source code is often publicly available, GitHub Releases allow maintai
 Package managers sometimes support installing directly from GitHub, either from source or from a pre-built wheel:
 
 ```console
-# Install from source (will clone and build)
+## Install from source (will clone and build)
 $ pip install git+https://github.com/psf/requests.git
 
-# Install from a specific tag/branch
+## Install from a specific tag/branch
 $ pip install git+https://github.com/psf/requests.git@v2.32.3
 
-# Install a wheel directly from a GitHub release
+## Install a wheel directly from a GitHub release
 $ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
 ```
 
@@ -622,7 +622,7 @@ Different languages have their own package registries: [crates.io](https://crate
 Deploying a web service to the internet involves additional infrastructure: domain name registration, DNS configuration to point your domain to your server, and often a reverse proxy like nginx to handle HTTPS and route traffic. For simpler use cases like documentation or static sites, [GitHub Pages](https://pages.github.com/) provides free hosting directly from a repository.
 
 <!--
-## Documentation
+### Documentation
 
 So far we have emphasized the deliverable _artifact_ as the main output of packaging and shipping code.
 In addition to the artifact, we need to document for users the code's functionality, installation instructions, and usage examples.
@@ -631,7 +631,7 @@ Tools like [Sphinx](https://www.sphinx-doc.org/) (Python) and [MkDocs](https://w
 For HTTP-based APIs, the [OpenAPI specification](https://www.openapis.org/) (formerly Swagger) provides a standard format for describing API endpoints, which tools can use to generate interactive documentation and client libraries automatically. -->
 
 
-# Exercises
+## Exercises
 
 1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? (Hint: look at `$PATH` before and after activation.) Run `which deactivate` and reason about what the deactivate bash function is doing.
 1. Create a Python package with a `pyproject.toml` and install it in a virtual environment. Create a lockfile and inspect it.

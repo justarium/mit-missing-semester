@@ -10,13 +10,13 @@ video:
   id: MSgoeuMqUmU
 ---
 
-# 我们是谁？
+## 我们是谁？
 
 本课程由 [Anish](https://anish.io/)、[Jon](https://thesquareplanet.com/) 和 [Jose](http://josejg.com/) 联合讲授。我们都是 MIT 校友，当年还在读书时就创办了这门 MIT IAP 课程。如有任何问题，欢迎联系我们：<br>[missing-semester@mit.edu](mailto:missing-semester@mit.edu)
 
 我们不以此课程获得报酬，也不以任何方式将其商业化。所有 [课程资料](https://missing.csail.mit.edu/) 和 [讲座录像](https://www.youtube.com/@MissingSemester) 均免费公开。如果你想支持我们，最好的方式就是推荐这门课程。如果你是公司、大学或其他组织，在大规模教学中使用了本课程内容，欢迎邮件告诉我们，我们很希望听到 :)
 
-# 课程目的
+## 课程目的
 
 作为计算机科学家，我们都知道计算机擅长处理重复性任务。但我们往往忽略了一点：**这个优势同样适用于我们使用计算机本身，而不仅仅是程序执行的计算过程**。我们手头有大量强大的工具，能显著提升工作效率、帮助解决更复杂的问题。可惜的是，大多数人只用到了冰山一角——我们往往只记住几个「魔法咒语」勉强应付，一旦卡住就盲目地从网上复制粘贴命令。
 
@@ -24,7 +24,7 @@ video:
 
 我们想教你如何用好已经熟悉的工具，介绍新工具来丰富你的工具箱，并激发你进一步探索（甚至自己开发）更多工具的热情。这正是我们认为大多数计算机科学课程中缺失的内容。
 
-# 课程结构
+## 课程结构
 
 本课程是一门免学分课程，包含九场 1 小时的讲座，每场围绕一个 [特定主题]({{ '/2026/' | relative_url }}) 展开。各讲座之间基本独立，但随着课程推进，我们会假定你已经熟悉前面讲座的内容。我们提供在线讲义，但课堂上可能涵盖讲义中没有的内容（如演示等）。与往年一样，讲座会录制并 [在线发布](https://www.youtube.com/@MissingSemester)。
 
@@ -34,13 +34,13 @@ video:
 
 最后，如果你对课程有任何反馈，欢迎邮件告诉我们：<br>[missing-semester@mit.edu](mailto:missing-semester@mit.edu)
 
-# 主题一：Shell
+## 主题一：Shell
 
 <!-- {% comment %}
 lecturer: Jon
 {% endcomment %} -->
 
-## Shell 是什么？
+### Shell 是什么？
 
 如今的计算机有多种接收命令的方式：华丽的图形界面、语音输入、AR/VR，以及近期兴起的大语言模型。这些方式在 80% 的场景下都很好用，但它们有一个根本性的局限——你无法点击一个不存在的按钮，也无法发出一条未被编程的语音指令。要充分利用计算机的所有工具，我们需要「复古」一下，回到一个古老而强大的文本界面：Shell。
 
@@ -56,13 +56,13 @@ lecturer: Jon
 
 还有一些 Shell 在使用体验上对 bash 做了不少改进（例如 fish 和 zsh 是最常见的）。虽然它们很流行（授课教师们都在使用其中之一），但普及程度远不及 bash，而且依赖的许多概念也与 bash 相同，因此本讲不做重点介绍。
 
-## 为什么你要关心 Shell ？
+### 为什么你要关心 Shell ？
 
 Shell 不只是比「点来点去」快得多，它还具备任何单一图形程序都难以企及的表达能力。正如我们将要看到的，Shell 让你能够**以富有创造性的方式组合不同的程序**，从而自动化几乎任何任务。
 
 熟悉 Shell 还能帮助你在开源世界中畅行无阻（很多安装说明都需要用到 Shell）、为你的项目搭建持续集成（如 [代码质量]({{ '/2026/code-quality' | relative_url }}) 一讲所述），以及在其他程序出错时进行排障。
 
-## 在 Shell 中导航
+### 在 Shell 中导航
 
 当你打开终端时，会看到一个通常长这样子的**提示符**：
 
@@ -136,7 +136,7 @@ missing:/$
 > [!TIP]
 > 我们建议安装并使用 [`zoxide`](https://github.com/ajeetdsouza/zoxide) 来加速 `cd` 操作。它提供的 `z` 命令会记住你经常访问的路径，让你用更少的输入实现快速跳转。
 
-## Shell 中有哪些可用的程序？
+### Shell 中有哪些可用的程序？
 
 但 Shell 怎么知道去哪找 `date` 或 `echo` 这样的程序呢？当 Shell 需要执行命令时，它会查询 `$PATH` 环境变量。这个变量列出一组目录，Shell 会在这些目录中搜索与命令名匹配的程序：
 
@@ -255,7 +255,7 @@ postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
 
 这条命令从远程服务器抓取 SSH 日志（`ssh` 会在下一讲详细介绍），搜索断开连接的消息，从中提取用户名，最后输出出现次数最多的前 10 个用户名（逗号分隔）。一切都在一条命令里完成！我们把逐步拆解这条命令留作习题。
 
-## Shell 语言（bash）
+### Shell 语言（bash）
 
 前面的例子引入了一个新概念：管道（`|`）。它可以把一个程序的输出连接到另一个程序的输入。之所以可行，是因为多数命令行程序在未给出 `file` 参数时，会从「标准输入」（通常即键盘）读取数据。`|` 会把前面程序的「标准输出」（通常打印在终端上的内容）作为后面程序的标准输入。借助这种机制，我们就能**把多个 Shell 程序组合（compose）起来**，这也是 Shell 如此高效的重要原因之一。
 
@@ -283,25 +283,25 @@ for i in $(seq 1 10); do
 虽然你**可以直接在提示符里写很长的 Shell 脚本**，但通常更推荐把它们写进 `.sh` 文件。例如，下面这个脚本会在循环中不断运行某个程序直到它失败；它只打印失败那次的输出，同时在后台对 CPU 施加压力（这在复现偶尔失败的测试（flaky test）时非常有用）。
 
 ```bash
-#!/bin/bash
+##!/bin/bash
 set -euo pipefail
 
-# Start CPU stress in background
+## Start CPU stress in background
 stress --cpu 8 &
 STRESS_PID=$!
 
-# Setup log file
+## Setup log file
 LOGFILE="test_runs_$(date +%s).log"
 echo "Logging to $LOGFILE"
 
-# Run tests until one fails
+## Run tests until one fails
 RUN=1
 while cargo test my_test > "$LOGFILE" 2>&1; do
     echo "Run $RUN passed"
     ((RUN++))
 done
 
-# Cleanup and report
+## Cleanup and report
 kill $STRESS_PID
 echo "Test failed on run $RUN"
 echo "Last 20 lines of output:"
@@ -326,11 +326,11 @@ echo "Full log: $LOGFILE"
 > 我们强烈建议你在写脚本时大量使用 [shellcheck](https://www.shellcheck.net/) 。<br>
 > LLM 在编写和调试 Shell 脚本方面也很有帮助；当脚本对 bash 来说变得过于臃肿（100 行以上）时，它们也很适合把脚本迁移到更「正式」的编程语言（例如 Python）。
 
-# 下一步
+## 下一步
 
 到这里，你已经对 Shell 有了足够的了解，可以完成一些基础任务了。你应该能在系统中导航、找到需要的文件，并使用大多数程序的基本功能。下一讲会讨论如何借助 Shell 和众多好用的命令行工具来完成并自动化更复杂的任务。
 
-# 练习
+## 练习
 
 本课程每讲都配有一组练习。有些给出明确任务，有些是开放题，比如「试试使用 X 和 Y 工具」。我们非常鼓励你亲自上手。
 

@@ -18,7 +18,7 @@ However, unlike the majority of programming languages, in shell scripting everyt
 In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
 We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
 
-# The Command Line Interface
+## The Command Line Interface
 
 Writing a function in most programming languages looks something like:
 
@@ -31,7 +31,7 @@ Here we can explicitly see the inputs and the outputs of the program.
 In contrast, shell scripts can look quite different at first glance.
 
 ```shell
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 
 if [[ -f $1 ]]; then
     echo "Target file already exists"
@@ -54,7 +54,7 @@ To properly understand what is going in scripts like this one we first need to i
 - Return codes
 - Signals
 
-## Arguments
+### Arguments
 
 Shell programs receive a list of arguments when they are executed.
 Arguments are plain strings in shell, and it is up to the program how to interpret them.
@@ -84,7 +84,7 @@ Another common convention in CLI programs is for programs to accept a variable n
 ```shell
 mkdir src
 mkdir docs
-# is equivalent to
+## is equivalent to
 mkdir src docs
 ```
 
@@ -112,27 +112,27 @@ In practice, globs are best understood with motivating examples.
 
 ```shell
 touch folder/{a,b,c}.py
-# Will expand to
+## Will expand to
 touch folder/a.py folder/b.py folder/c.py
 
 convert image.{png,jpg}
-# Will expand to
+## Will expand to
 convert image.png image.jpg
 
 cp /path/to/project/{setup,build,deploy}.sh /newpath
-# Will expand to
+## Will expand to
 cp /path/to/project/setup.sh /path/to/project/build.sh /path/to/project/deploy.sh /newpath
 
-# Globbing techniques can also be combined
+## Globbing techniques can also be combined
 mv *{.py,.sh} folder
-# Will move all *.py and *.sh files
+## Will move all *.py and *.sh files
 ```
 
 > [!TIP]
 > Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
 
 
-## Streams
+### Streams
 
 Whenever we execute a program pipeline like
 
@@ -165,7 +165,7 @@ We can see that all processes but `cat` are running right away. The shell spawns
 Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
 
 ```shell
-# These are equivalent when data comes from a pipe
+## These are equivalent when data comes from a pipe
 echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
@@ -179,30 +179,30 @@ $ ls /nonexistent
 ls: cannot access '/nonexistent': No such file or directory
 $ ls /nonexistent | grep "pattern"
 ls: cannot access '/nonexistent': No such file or directory
-# The error message still appears because stderr is not piped
+## The error message still appears because stderr is not piped
 $ ls /nonexistent 2>/dev/null
-# No output - stderr was redirected to /dev/null
+## No output - stderr was redirected to /dev/null
 ```
 
 The shell provides syntax for redirecting these streams. Here are some illustrative examples.
 
 ```shell
-# Redirect stdout to a file (overwrite)
+## Redirect stdout to a file (overwrite)
 echo "hello" > output.txt
 
-# Redirect stdout to a file (append)
+## Redirect stdout to a file (append)
 echo "world" >> output.txt
 
-# Redirect stderr to a file
+## Redirect stderr to a file
 ls foobar 2> errors.txt
 
-# Redirect both stdout and stderr to the same file
+## Redirect both stdout and stderr to the same file
 ls foobar &> all_output.txt
 
-# Redirect stdin from a file
+## Redirect stdin from a file
 grep "pattern" < input.txt
 
-# Discard output by redirecting to /dev/null
+## Discard output by redirecting to /dev/null
 cmd > /dev/null 2>&1
 ```
 
@@ -216,7 +216,7 @@ $ cat ~/.bash_history | fzf
 `fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
 
 
-## Environment variables
+### Environment variables
 
 To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
 Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
@@ -230,9 +230,9 @@ Strings delimited with `'` are literal strings and will not expand variables, pe
 ```shell
 foo=bar
 echo "$foo"
-# prints bar
+## prints bar
 echo '$foo'
-# prints $foo
+## prints $foo
 ```
 
 To capture the output of a command into a variable we use _command substitution_.
@@ -265,9 +265,9 @@ Alternatively, we can use the `export` built-in function that will modify our cu
 
 ```shell
 export DEBUG=1
-# All programs from this point onwards will have DEBUG=1 in their environment
+## All programs from this point onwards will have DEBUG=1 in their environment
 bash -c 'echo $DEBUG'
-# prints 1
+## prints 1
 ```
 
 To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
@@ -275,7 +275,7 @@ To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
 > [!TIP]
 > Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
 
-## Return codes
+### Return codes
 
 As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
 
@@ -290,34 +290,34 @@ Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit
 This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
 
 ```shell
-# echo will only run if grep succeeds (finds a match)
+## echo will only run if grep succeeds (finds a match)
 grep -q "pattern" file.txt && echo "Pattern found"
 
-# echo will only run if grep fails (no match)
+## echo will only run if grep fails (no match)
 grep -q "pattern" file.txt || echo "Pattern not found"
 
-# true is a shell program that always succeeds
+## true is a shell program that always succeeds
 true && echo "This will always print"
 
-# and false is a shell program that always fails
+## and false is a shell program that always fails
 false || echo "This will always print"
 ```
 
 The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
 
 ```shell
-# if uses the return code of the condition command (0 = true, nonzero = false)
+## if uses the return code of the condition command (0 = true, nonzero = false)
 if grep -q "pattern" file.txt; then
     echo "Found"
 fi
 
-# while loops continue as long as the command returns 0
+## while loops continue as long as the command returns 0
 while read line; do
     echo "$line"
 done < file.txt
 ```
 
-## Signals
+### Signals
 
 In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
 The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
@@ -347,7 +347,7 @@ In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` s
 Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
 
 ```python
-#!/usr/bin/env python
+##!/usr/bin/env python
 import signal, time
 
 def handler(signum, time):
@@ -424,7 +424,7 @@ You can learn more about these and other signals [here](https://en.wikipedia.org
 Within shell scripts, you can use the `trap` built-in to execute commands when signals are received. This is useful for cleanup operations:
 
 ```shell
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 cleanup() {
     echo "Cleaning up temporary files..."
     rm -f /tmp/mytemp.*
@@ -433,7 +433,7 @@ trap cleanup EXIT  # Run cleanup when script exits
 trap cleanup SIGINT SIGTERM  # Also on Ctrl-C or kill
 ```
 <!-- {% comment %}
-### Users, Files and Permissions
+#### Users, Files and Permissions
 
 Lastly, another way programs have to indirectly communicate with each other is using files.
 For a program to be able to correctly read/write/delete files and folders, the file permissions must allow the operation.
@@ -450,7 +450,7 @@ In this case, the file `notes.txt` has read/write permissions for the user alice
 
 ```console
 $ ./script.sh
-# permission denied
+## permission denied
 $ chmod +x script.sh
 $ ls -l script.sh
 -rwxr-xr-x  1 alice  users  3125 Jan 11 23:07 script.sh
@@ -496,7 +496,7 @@ So far we've focused on your local machine, but many of these skills become even
 
 {% endcomment %} -->
 
-# Remote Machines
+## Remote Machines
 
 It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
 
@@ -509,10 +509,10 @@ Here we are trying to ssh as user `alice` in server `server.mit.edu`.
 An often overlooked feature of `ssh` is the ability to run commands non-interactively. `ssh` correctly handles sending the stdin and receiving the stdout of the command, so we can combine it with other commands
 
 ```shell
-# here ls runs in the remote, and wc runs locally
+## here ls runs in the remote, and wc runs locally
 ssh alice@server ls | wc -l
 
-# here both ls and wc run in the server
+## here both ls and wc run in the server
 ssh alice@server 'ls | wc -l'
 
 ```
@@ -538,7 +538,7 @@ At the server side `ssh` will look into `.ssh/authorized_keys` to determine whic
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 
-# or more simply (if ssh-copy-id is available)
+## or more simply (if ssh-copy-id is available)
 
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
@@ -554,7 +554,7 @@ Host vm
     Port 2222
     IdentityFile ~/.ssh/id_ed25519
 
-# Configs can also take wildcards
+## Configs can also take wildcards
 Host *.mit.edu
     User alice
 ```
@@ -562,7 +562,7 @@ Host *.mit.edu
 
 
 
-# Terminal Multiplexers
+## Terminal Multiplexers
 
 When using the command line interface you will often want to run more than one thing at once.
 For instance, you might want to run your editor and your program side by side.
@@ -603,7 +603,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
 
 With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
 
-# Customizing the Shell
+## Customizing the Shell
 
 A wide array of command line programs are configured using plain-text files known as _dotfiles_
 (because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
@@ -640,10 +640,10 @@ Customizing your shell often means installing new command-line tools. Package ma
 Here's how to install two useful tools using Homebrew on macOS:
 
 ```shell
-# ripgrep: a faster grep with better defaults
+## ripgrep: a faster grep with better defaults
 brew install ripgrep
 
-# fd: a faster, user-friendly find
+## fd: a faster, user-friendly find
 brew install fd
 ```
 
@@ -693,33 +693,33 @@ alias alias_name="command_to_alias arg1 arg2"
 Aliases have many convenient features:
 
 ```bash
-# Make shorthands for common flags
+## Make shorthands for common flags
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+## Save a lot of typing for common commands
 alias gs="git status"
 alias gc="git commit"
 
-# Save you from mistyping
+## Save you from mistyping
 alias sl=ls
 
-# Overwrite existing commands for better defaults
+## Overwrite existing commands for better defaults
 alias mv="mv -i"           # -i prompts before overwrite
 alias mkdir="mkdir -p"     # -p make parent dirs as needed
 alias df="df -h"           # -h prints human readable format
 
-# Alias can be composed
+## Alias can be composed
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+## To ignore an alias run it prepended with \
 \ls
-# Or disable an alias altogether with unalias
+## Or disable an alias altogether with unalias
 unalias la
 
-# To get an alias definition just call it with alias
+## To get an alias definition just call it with alias
 alias ll
-# Will print ll='ls -lh'
+## Will print ll='ls -lh'
 ```
 
 Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
@@ -770,7 +770,7 @@ Shells like [fish](https://fishshell.com/) include many of these features by def
 > You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
 
 
-# AI in the Shell
+## AI in the Shell
 
 There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
 
@@ -805,7 +805,7 @@ Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces,
 
 **AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
 
-# Terminal Emulators
+## Terminal Emulators
 
 Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
 A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
@@ -822,9 +822,9 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 
 
 
-# Exercises
+## Exercises
 
-## Arguments and Globs
+### Arguments and Globs
 
 1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
 
@@ -850,7 +850,7 @@ ls -lath --color=auto
 
 1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
 
-## Environment Variables
+### Environment Variables
 
 1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
 
@@ -864,7 +864,7 @@ polo() {
 }
 {% endcomment %} -->
 
-## Return Codes
+### Return Codes
 
 1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
 
@@ -883,7 +883,7 @@ polo() {
     ```
 
 <!-- {% comment %}
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 
 count=0
 until [[ "$?" -ne 0 ]];
@@ -896,7 +896,7 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %} -->
 
-## Signals and Job Control
+### Signals and Job Control
 
 1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-lf` flags).
 
@@ -904,15 +904,15 @@ cat out.txt
 
     However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
 
-## Files and Permissions
+### Files and Permissions
 
 1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
 
-## Terminal Multiplexers
+### Terminal Multiplexers
 
 1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
 
-## Aliases and Dotfiles
+### Aliases and Dotfiles
 
 1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
 
@@ -930,7 +930,7 @@ cat out.txt
 
 1. Publish your dotfiles on GitHub.
 
-## Remote Machines (SSH)
+### Remote Machines (SSH)
 
 Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
 

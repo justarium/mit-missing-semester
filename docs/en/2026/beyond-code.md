@@ -17,7 +17,7 @@ understand, maintain, and build upon. It's about communicating
 clearly, contributing thoughtfully, and being a good citizen in the
 ecosystems you participate in—whether open source or proprietary.
 
-# One-way communication
+## One-way communication
 
 Much of software engineering involves writing for people who lack your
 current context: teammates who join later, maintainers who inherit
@@ -126,7 +126,7 @@ another time.
 > urge lest the reader read _none_ of what you've written. Explain the
 > "why" and trust them to figure out the "how" for their situation.
 
-# Collaboration
+## Collaboration
 
 As engineers, we may spend a large part of our job coding at our own
 keyboard, but a sizeable chunk of our time is also taken up by
@@ -134,7 +134,7 @@ communicating with others. That time is usually split into collaboration
 and education, and the payoff from investing in getting better at both is
 significant.
 
-## Contributing
+### Contributing
 
 Whether you are submitting a bug report, contributing a simple bug fix,
 or implementing a huge feature, it's worth keeping in mind that there
@@ -247,7 +247,7 @@ why accepting the contribution is worth the maintenance burden.
 > personally. Ask clarifying questions if you disagree — you might learn
 > something, or maybe they will.
 
-## Reviewing
+### Reviewing
 
 You might think code review is something senior developers do, but
 you'll likely be asked to review code much earlier than you expect, and
@@ -294,7 +294,7 @@ some tips that can make them much better much faster:
 > using as a first pass, but not a replacement for thoughtful human
 > review.
 
-# Education
+## Education
 
 A lot of our non-coding time as engineers is spent either asking or
 answering questions, possibly a mixture of both; during collaboration,
@@ -333,7 +333,7 @@ surface hidden assumptions that others need to understand too.
 > Note that this advice applies just as much when communicating with
 > LLMs!
 
-# AI etiquette
+## AI etiquette
 
 With the growing use of LLMs and AI across software engineering, the
 social and professional norms around are still in flux. We already
@@ -380,7 +380,7 @@ is in scope for a particular task, ask!
 > Trying to do so discretely without getting caught **will** come back
 > to bite you.
 
-# Exercises
+## Exercises
 
 1. Browse the source code of a well-known project (e.g.,
    [Redis](https://github.com/redis/redis) or

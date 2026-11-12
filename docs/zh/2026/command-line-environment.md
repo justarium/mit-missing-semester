@@ -18,7 +18,7 @@ video:
 具体来说，Shell 脚本深受各种*约定（conventions）*的影响。CLI 程序要想在 Shell 环境中良好协作，就必须遵循一些通用模式。
 接下来介绍理解命令行程序运作方式所需的核心概念，以及使用、配置这些程序的常见约定。
 
-# 命令行界面
+## 命令行界面
 
 在大多数编程语言中，写个函数大概长这样：
 
@@ -31,7 +31,7 @@ def add(x: int, y: int) -> int:
 相比之下，shell 脚本第一眼看上去可能完全是另一回事。
 
 ```shell
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 
 if [[ -f $1 ]]; then
     echo "Target file already exists"
@@ -54,7 +54,7 @@ fi
 - 返回码（Return codes）
 - 信号（Signals）
 
-## 参数
+### 参数
 
 Shell 程序在执行时会接收一个参数列表。
 在 Shell 中，参数本质上就是纯字符串，由程序决定怎么解析这些字符串。
@@ -84,7 +84,7 @@ CLI 程序中还有一个常见惯例：支持传入不定数量的同类型参�
 ```shell
 mkdir src
 mkdir docs
-# 等价于
+## 等价于
 mkdir src docs
 ```
 
@@ -112,27 +112,27 @@ done
 
 ```shell
 touch folder/{a,b,c}.py
-# 会被扩展为
+## 会被扩展为
 touch folder/a.py folder/b.py folder/c.py
 
 convert image.{png,jpg}
-# 会被扩展为
+## 会被扩展为
 convert image.png image.jpg
 
 cp /path/to/project/{setup,build,deploy}.sh /newpath
-# 会被扩展为
+## 会被扩展为
 cp /path/to/project/setup.sh /path/to/project/build.sh /path/to/project/deploy.sh /newpath
 
-# 通配符技巧也可以被结合
+## 通配符技巧也可以被结合
 mv *{.py,.sh} folder
-# 会移动所有 *.py 和 *.sh 文件
+## 会移动所有 *.py 和 *.sh 文件
 ```
 
 > [!TIP]
 > 有些 Shell（例如 zsh）还支持更高级的通配形式，比如 `**`，它会展开为递归路径。因此 `rm **/*.py` 会递归删除所有 `.py` 文件。
 
 
-## 流
+### 流
 
 每当我们执行下面这种程序管道时：
 
@@ -165,7 +165,7 @@ $ ps | grep -P '(sleep|cat|grep|sort|uniq)'
 每个程序都有一个输入流，叫 stdin（standard input，标准输入）。使用管道时，stdin 会自动连接。在脚本中，很多程序还接受 `-` 作为文件名，表示从 stdin 读取：
 
 ```shell
-# 当数据从管道传输时，以下是等价的
+## 当数据从管道传输时，以下是等价的
 echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
@@ -179,30 +179,30 @@ $ ls /nonexistent
 ls: cannot access '/nonexistent': No such file or directory
 $ ls /nonexistent | grep "pattern"
 ls: cannot access '/nonexistent': No such file or directory
-# The error message still appears because stderr is not piped
+## The error message still appears because stderr is not piped
 $ ls /nonexistent 2>/dev/null
-# No output - stderr was redirected to /dev/null
+## No output - stderr was redirected to /dev/null
 ```
 
 Shell 提供了专门的语法来重定向这些流：
 
 ```shell
-# 将标准输出（stdout）重定向到文件（覆盖）
+## 将标准输出（stdout）重定向到文件（覆盖）
 echo "hello" > output.txt
 
-# 将标准输出（stdout）重定向到文件（追加）
+## 将标准输出（stdout）重定向到文件（追加）
 echo "world" >> output.txt
 
-# 将标准错误（stderr）重定向到文件
+## 将标准错误（stderr）重定向到文件
 ls foobar 2> errors.txt
 
-# 将标准输出和标准错误同时重定向到同一个文件
+## 将标准输出和标准错误同时重定向到同一个文件
 ls foobar &> all_output.txt
 
-# 从文件中重定向标准输入（stdin）
+## 从文件中重定向标准输入（stdin）
 grep "pattern" < input.txt
 
-# 通过重定向到 /dev/null 来丢弃输出
+## 通过重定向到 /dev/null 来丢弃输出
 cmd > /dev/null 2>&1
 ```
 另一个体现 Unix 哲学的强力工具是模糊查找器 [`fzf`](https://github.com/junegunn/fzf)。它从 stdin 逐行读取输入，提供交互式界面让你筛选和选择：
@@ -215,7 +215,7 @@ $ cat ~/.bash_history | fzf
 `fzf` 可以和很多 Shell 操作整合起来。等讲到 Shell 定制时，我们还会看到它更多的用法。
 
 
-## 环境变量
+### 环境变量
 
 在 bash 里，给变量赋值写成 `foo=bar`，读取变量值用 `$foo`。
 注意 `foo = bar` 是非法语法，因为 Shell 会把它解析成调用程序 `foo`，并传入参数 `['=', 'bar']`。
@@ -229,9 +229,9 @@ Shell 变量没有类型，本质上全都是字符串。
 ```shell
 foo=bar
 echo "$foo"
-# 打印 bar
+## 打印 bar
 echo '$foo'
-# 打印 $foo
+## 打印 $foo
 ```
 
 要把一个命令的输出保存到变量里，我们会用 *命令替换（command substitution）*。
@@ -265,9 +265,9 @@ echo $TZ  # 这将为空，因为 TZ 仅为子命令设置
 
 ```shell
 export DEBUG=1
-# 从此时起，所有程序的环境中都将具有 DEBUG=1
+## 从此时起，所有程序的环境中都将具有 DEBUG=1
 bash -c 'echo $DEBUG'
-# 打印 1
+## 打印 1
 ```
 
 要删除一个变量，可以使用内建命令 `unset`，例如 `unset DEBUG`。
@@ -275,7 +275,7 @@ bash -c 'echo $DEBUG'
 > [!TIP]
 > 环境变量也是 Shell 约定的一部分。它们可以隐式地修改很多程序的行为，不必显式传参。比如，Shell 把当前用户的家目录路径放进 `$HOME`，程序直接读这个变量即可，不用额外传 `--home /home/alice`。另一个常见例子是 `$TZ`，很多程序会根据它指定的时区来格式化日期和时间。
 
-## 返回码
+### 返回码
 
 前面我们已经看到，Shell 程序的主要输出通常通过 stdout/stderr 流和对文件系统的操作来体现。
 
@@ -290,34 +290,34 @@ Shell 里有布尔运算符 `&&` 和 `||`，分别表示 AND 和 OR。
 也就是说，你可以根据前一个命令是否成功来条件性地执行后续命令，「成功」的判断标准就是返回码是否为 0。看几个例子：
 
 ```shell
-# echo 仅当 grep 成功时才会运行（找到匹配项）
+## echo 仅当 grep 成功时才会运行（找到匹配项）
 grep -q "pattern" file.txt && echo "Pattern found"
 
-# echo 仅在 grep 失败（不匹配）时运行
+## echo 仅在 grep 失败（不匹配）时运行
 grep -q "pattern" file.txt || echo "Pattern not found"
 
-# true 是一个总是成功的 shell 程序
+## true 是一个总是成功的 shell 程序
 true && echo "This will always print"
 
-# false 是一个总是失败的 shell 程序
+## false 是一个总是失败的 shell 程序
 false || echo "This will always print"
 ```
 
 同样的原则也适用于 `if` 和 `while` 语句，它们也是根据返回码来做判断的：
 
 ```shell
-# if 使用条件命令的返回码（0 = true，非零 = false）
+## if 使用条件命令的返回码（0 = true，非零 = false）
 if grep -q "pattern" file.txt; then
     echo "Found"
 fi
 
-# 只要命令返回 0，while 循环就会继续
+## 只要命令返回 0，while 循环就会继续
 while read line; do
     echo "$line"
 done < file.txt
 ```
 
-## 信号
+### 信号
 
 有时你需要在程序执行到一半时打断它，比如某条命令跑太久了。
 最简单的做法是按 `Ctrl-C`，命令通常就会停下来。
@@ -347,7 +347,7 @@ $
 下面是一个最小 Python 示例：它会捕获 `SIGINT` 并忽略它，因此不会再因为 `Ctrl-C` 而停止。此时如果要杀掉这个程序，可以改用 `SIGQUIT` 信号，也就是按 `Ctrl-\`。
 
 ```python
-#!/usr/bin/env python
+##!/usr/bin/env python
 import signal, time
 
 def handler(signum, time):
@@ -425,7 +425,7 @@ $ kill %2
 在 Shell 脚本里，你可以使用内建命令 `trap`，让脚本在收到信号时执行指定命令。这在做清理工作时很有用：
 
 ```shell
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 cleanup() {
     echo "Cleaning up temporary files..."
     rm -f /tmp/mytemp.*
@@ -434,7 +434,7 @@ trap cleanup EXIT  # 当脚本退出时执行清理
 trap cleanup SIGINT SIGTERM  # 也可以按 Ctrl-C 或 Kill
 ```
 <!-- {% comment %}
-### 用户，文件与权限
+#### 用户，文件与权限
 
 最后，程序之间还有一种间接通信方式，就是通过文件。
 如果一个程序想正确地读取、写入或删除文件和目录，那么对应的文件权限必须允许它这么做。
@@ -451,7 +451,7 @@ $ ls -l notes.txt
 
 ```console
 $ ./script.sh
-# permission denied
+## permission denied
 $ chmod +x script.sh
 $ ls -l script.sh
 -rwxr-xr-x  1 alice  users  3125 Jan 11 23:07 script.sh
@@ -497,7 +497,7 @@ $ ./script.sh
 
 {% endcomment %} -->
 
-# 远程机器
+## 远程机器
 
 现在程序员在日常工作中接触远程服务器已经越来越常见。最常用的工具是 SSH（Secure Shell），它可以帮我们连接到远程服务器，并提供一个你已经很熟悉的 Shell 界面。连接命令通常像这样：
 
@@ -510,10 +510,10 @@ ssh alice@server.mit.edu
 `ssh` 有一个经常被忽略的能力：可以非交互式地执行命令。`ssh` 会正确处理 stdin 发送给远程命令以及接收 stdout，因此可以和其他命令组合使用。
 
 ```shell
-# 这里 ls 在远程执行，wc 在本地执行
+## 这里 ls 在远程执行，wc 在本地执行
 ssh alice@server ls | wc -l
 
-# 这里 ls 和 wc 都在远程服务器上执行
+## 这里 ls 和 wc 都在远程服务器上执行
 ssh alice@server 'ls | wc -l'
 
 ```
@@ -540,7 +540,7 @@ ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 
-# 或者更简单一点（如果系统提供了 ssh-copy-id）
+## 或者更简单一点（如果系统提供了 ssh-copy-id）
 
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
@@ -556,7 +556,7 @@ Host vm
     Port 2222
     IdentityFile ~/.ssh/id_ed25519
 
-# 配置也可以使用通配符
+## 配置也可以使用通配符
 Host *.mit.edu
     User alice
 ```
@@ -564,7 +564,7 @@ Host *.mit.edu
 
 
 
-# 终端复用器
+## 终端复用器
 
 在命令行里工作时，你经常想同时做不止一件事。
 比如把编辑器和正在运行的程序并排放在一起。
@@ -606,7 +606,7 @@ Host *.mit.edu
 
 当你的工具箱里有了 tmux 和 SSH，大概也希望无论在哪台机器上都能把环境调成自己熟悉的样子。这时就该开始做 Shell 自定义了。
 
-# 定制 Shell
+## 定制 Shell
 
 很多命令行程序通过纯文本配置文件来配置，这类文件通常被称为 _dotfiles_。
 之所以叫这个名字，是因为文件名通常以 `.` 开头（如 `~/.vimrc`），默认在 `ls` 列表里是隐藏的。
@@ -642,10 +642,10 @@ export PATH="$PATH:path/to/append"
 下面是在 macOS 上使用 Homebrew 安装两个实用工具的示例：
 
 ```shell
-# ripgrep：更快、默认行为也更合理的 grep
+## ripgrep：更快、默认行为也更合理的 grep
 brew install ripgrep
 
-# fd：更快、也更易用的 find
+## fd：更快、也更易用的 find
 brew install fd
 ```
 
@@ -695,33 +695,33 @@ alias alias_name="command_to_alias arg1 arg2"
 alias 有不少很方便的用法：
 
 ```bash
-# 为常用选项制作简写
+## 为常用选项制作简写
 alias ll="ls -lh"
 
-# 节省大量输入常用命令的时间
+## 节省大量输入常用命令的时间
 alias gs="git status"
 alias gc="git commit"
 
-# 避免输入错误
+## 避免输入错误
 alias sl=ls
 
-# 覆盖现有命令以获得更好的默认值
+## 覆盖现有命令以获得更好的默认值
 alias mv="mv -i"           # -i 覆盖前提示
 alias mkdir="mkdir -p"     # -p 根据需要创建父目录
 alias df="df -h"           # -h 打印人类可读的格式
 
-# 可以组成别名
+## 可以组成别名
 alias la="ls -A"
 alias lla="la -l"
 
-# 要忽略别名，请运行它并在其前面加上 \
+## 要忽略别名，请运行它并在其前面加上 \
 \ls
-# 或者使用 unalias 完全禁用别名
+## 或者使用 unalias 完全禁用别名
 unalias la
 
-# 要获取别名定义，只需使用 alias 调用它
+## 要获取别名定义，只需使用 alias 调用它
 alias ll
-# 将打印 ll='ls -lh'
+## 将打印 ll='ls -lh'
 ```
 
 不过 alias 也有局限：不能在命令中间接收参数。行为稍微复杂一点，就应该改用 Shell function。
@@ -756,7 +756,7 @@ dotfiles 应该怎么组织？推荐的做法是：放在一个单独的目录�
 > [!TIP]
 > 想要这些功能，不一定非得用 oh-my-zsh 这种大而全的框架。单独安装需要的插件通常更快，也更容易掌控。大型框架可能明显拖慢 Shell 启动速度，所以最好只装真正会用到的部分。
 
-# Shell 中的 AI
+## Shell 中的 AI
 
 把 AI 工具集成进 shell 的方式有很多，下面给几个不同集成层次的例子：
 
@@ -791,7 +791,7 @@ sarah.connor
 
 **AI shell**：像 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 这样的工具，可以看作是一层“元 shell（meta-shell）”，它接收英文指令，再把它们转换成 shell 操作、文件编辑和更复杂的多步骤任务。
 
-# 终端模拟器
+## 终端模拟器
 
 除了自定义 shell 本身，你也值得花点时间认真挑选一下 **终端模拟器（terminal emulator）** 以及它的配置。
 终端模拟器是一个图形界面程序，它提供了你运行 shell 时看到的那层文本界面。
@@ -806,9 +806,9 @@ sarah.connor
 - 回滚缓冲区配置
 - 性能（一些较新的终端，比如 [Alacritty](https://github.com/alacritty/alacritty) 或 [Ghostty](https://ghostty.org/)，支持 GPU 加速）。
 
-# 练习
+## 练习
 
-## 参数与 Globs
+### 参数与 Globs
 
 1. 你可能见过像 `cmd --flag -- --notaflag` 这样的命令。这里的 `--` 是一个特殊参数，它告诉程序后面不要再继续解析选项（flag）了。也就是说，`--` 后面的所有内容都会被当作位置参数（positional argument）。这有什么用？试着运行 `touch -- -myfile`，然后在不使用 `--` 的情况下把它删掉。
 
@@ -834,7 +834,7 @@ ls -lath --color=auto
 
 1. 进程替换 `<(command)` 可以让你把一个命令的输出当成文件来用。试着配合 `diff` 和进程替换，比较 `printenv` 与 `export` 的输出。它们为什么不一样？（提示：可以试试 `diff <(printenv | sort) <(export | sort)`）
 
-## 环境变量
+### 环境变量
 
 1. 写两个 bash 函数 `marco` 和 `polo`，行为如下：每次执行 `marco` 时，都要以某种方式保存当前工作目录；之后无论你切到哪个目录，只要执行 `polo`，它都应该把你 `cd` 回执行 `marco` 时所在的目录。为了方便调试，你可以把代码写进 `marco.sh`，然后通过执行 `source marco.sh` 把这些定义重新加载到当前 shell。
 
@@ -848,7 +848,7 @@ polo() {
 }
 {% endcomment %} -->
 
-## 返回码
+### 返回码
 
 1. 假设你有一个很少失败的命令。为了调试它，你需要把它的输出保存下来，但等到一次失败运行可能会很耗时。写一个 bash 脚本，不断运行下面这个脚本直到它失败为止，并把标准输出和标准错误分别保存到文件里，最后把结果打印出来。如果你还能顺便报告它运行了多少次才失败，就加分。
 
@@ -867,7 +867,7 @@ polo() {
     ```
 
 <!-- {% comment %}
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 
 count=0
 until [[ "$?" -ne 0 ]];
@@ -880,7 +880,7 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %} -->
 
-## 信号与任务控制
+### 信号与任务控制
 
 1. 在终端里启动一个 `sleep 10000` 任务，用 `Ctrl-Z` 把它挂起，再用 `bg` 让它继续在后台运行。然后使用 [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) 找到它的 pid，再用 [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) 把它杀掉，整个过程都不要手动输入这个 pid。（提示：试试 `-af` 参数）
 
@@ -888,15 +888,15 @@ cat out.txt
 
     不过，如果我们是在另一个 bash 会话里启动的，这个策略就失效了，因为 `wait` 只对当前 shell 的子进程有效。讲义里还没提到的一点是：`kill` 命令成功时退出状态为 0，失败时则非 0。`kill -0` 不会真的发送信号，但如果进程不存在，它会返回非 0。写一个叫 `pidwait` 的 bash 函数，接收一个 pid，并一直等待到该进程结束。你应该用 `sleep` 来避免空转浪费 CPU。
 
-## 文件与权限
+### 文件与权限
 
 1. （进阶）写一个命令或脚本，递归找出某个目录中最近修改过的文件。更一般一点，你能不能按“最近修改时间”列出所有文件？
 
-## 终端复用器
+### 终端复用器
 
 1. 跟着这篇 `tmux` [教程](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) 先上手，然后再按照 [这些步骤](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/) 学习一些基础定制。
 
-## Aliases 与 Dotfiles
+### Aliases 与 Dotfiles
 
 1. 创建一个 alias `dc`，让你把 `cd` 打错时也能正常工作。
 
@@ -914,7 +914,7 @@ cat out.txt
 
 1. 把你的 dotfiles 发布到 GitHub。
 
-## 远程机器（SSH）
+### 远程机器（SSH）
 
 为了完成下面这些练习，请安装一台 Linux 虚拟机（或者直接使用一台现成的）。如果你不熟悉虚拟机，可以先看看[这篇](https://hibbard.eu/install-ubuntu-virtual-box/)安装教程。
 

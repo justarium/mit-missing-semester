@@ -46,7 +46,7 @@ print(extract(download_contents("https://raw.githubusercontent.com/missing-semes
 > [!TIP]
 > 为了获得更直观的演示，你可以作为后续任务让智能体运行生成的脚本。观察输出结果，然后尝试让它做些修改（例如，要求它只保留绝对 URL）。
 
-# AI 模型和智能体的工作原理
+## AI 模型和智能体的工作原理
 
 全面解释现代[大语言模型 (LLM)](https://en.wikipedia.org/wiki/Large_language_model)及智能体框架等基础设施的内部原理超出了本课程范围。但对一些关键概念建立高层次的理解，有助于有效地*使用*这项前沿技术并理解其局限。
 
@@ -58,13 +58,13 @@ LLM 可以被看作是对给定提示字符串（输入）的补全字符串（�
 
 对话聊天和编程智能体等 AI 工具都建立在这个基础原语之上。对于多轮交互，聊天应用和智能体使用回合标记，每次有新的用户提示时将整个对话历史作为提示字符串提供，每次用户提示调用一次 LLM 推理。对于工具调用智能体，框架会将特定的 LLM 输出解释为工具调用请求，并把工具调用的结果反馈给模型作为提示字符串的一部分（因此每次工具调用/响应都会再次运行 LLM 推理）。工具调用智能体的核心概念可以用 [200 行代码实现](https://www.mihaileric.com/The-Emperor-Has-No-Clothes/)。
 
-## 隐私
+### 隐私
 
 大多数 AI 编程工具在默认配置下会将大量数据发送到云端。有时框架在本地运行而 LLM 推理在云端；有时更多软件也在云端运行（比如服务提供商可能会获取你的整个代码库副本以及你与 AI 工具的所有交互记录）。
 
 目前已经有一些不错的开源 AI 编程工具和开源 LLM（但还不及专有模型），不过就目前而言，受硬件限制，大多数用户在本地运行最前沿的开源 LLM 还不现实。
 
-# 应用场景
+## 应用场景
 
 编程智能体在各种各样的任务中都能发挥作用。以下是一些示例：
 
@@ -123,7 +123,7 @@ In missing-semester repo, prompt agent with:
     Make this site look retro.
 {% endcomment %}
 
-# 高级智能体
+## 高级智能体
 
 这里简要概述编程智能体的一些更高级使用模式和功能。
 
@@ -172,15 +172,15 @@ This is something that'll be fast, for demonstration purposes.
 
 然后，你可以让顶层智能体通过类似"使用代码检查子智能体"的消息来显式调用子智能体。你甚至可以让顶层智能体在适当的时候自动调用子智能体，例如，在修改任何 Python 文件之后。
 
-# 注意事项
+## 注意事项
 
 AI 工具可能会犯错。它们建立在 LLM 之上，而 LLM 只是概率性的下一词预测模型，并不像人类那样具有「智能」。请审查 AI 输出的正确性和安全性。有时验证代码可能比自己写更困难；对于关键代码，请考虑手动编写。AI 可能会钻牛角尖并试图误导你；注意调试死循环。不要把 AI 当拐杖，警惕过度依赖或理解浮于表面。仍有大量编程任务是 AI 目前无法完成的。计算思维依然有价值。
 
-# 推荐软件
+## 推荐软件
 
 许多 IDE/AI 编程扩展都包含编程智能体（参见[开发环境](/2026/development-environment/)一讲的推荐）。其他流行的编程智能体包括 Anthropic 的 [Claude Code](https://www.claude.com/product/claude-code)、OpenAI 的 [Codex](https://openai.com/codex/)，以及开源的 [opencode](https://github.com/anomalyco/opencode)。
 
-# 练习
+## 练习
 
 1. 把同一编程任务分别用手动编码、AI 自动补全、内联聊天和智能体各做一次，比较体验差异。最佳选择是你正在开发的项目中的一个小功能。如果没有合适的，可以考虑在 GitHub 上做"good first issue"类型的任务，或者做 [Advent of Code](https://adventofcode.com/) 或 [LeetCode](https://leetcode.com/) 上的题目。
 1. 用 AI 编程智能体浏览一个陌生的代码库。最好在调试或为你在意的项目添加新功能的背景下进行。如果想不出合适的，可以试试用 AI 智能体理解 [opencode](https://github.com/anomalyco/opencode) 中安全相关功能的工作原理。

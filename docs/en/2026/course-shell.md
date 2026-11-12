@@ -11,7 +11,7 @@ video:
   id: MSgoeuMqUmU
 ---
 
-# Who are we?
+## Who are we?
 
 This class is co-taught by [Anish](https://anish.io/),
 [Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/). We
@@ -29,7 +29,7 @@ or other organization that runs this content past larger cohorts, please
 send us experience reports/testimonials by email so we get to hear about
 it :)
 
-# Motivation
+## Motivation
 
 As computer scientists, we know that computers are great at aiding in
 repetitive tasks. However, far too often, we forget that this applies
@@ -49,7 +49,7 @@ excitement for exploring (and perhaps building) more tools on your own.
 This is what we believe to be the missing semester from most Computer
 Science curricula.
 
-# Class structure
+## Class structure
 
 The not-for-credit class consists of nine 1-hour lectures, each one
 centering on a [particular topic](/2026/). The lectures are largely
@@ -78,13 +78,13 @@ hesitate to reach out to us and ask for pointers!
 Finally, if you have feedback about the class, please send it to us by
 email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-# Topic 1: The Shell
+## Topic 1: The Shell
 
 <!-- {% comment %}
 lecturer: Jon
 {% endcomment %} -->
 
-## What is the shell?
+### What is the shell?
 
 Computers these days have a variety of interfaces for giving them
 commands; fanciful graphical user interfaces, voice interfaces, AR/VR,
@@ -132,7 +132,7 @@ Other shells exist, often with many ergonomic improvements over bash
 bash, and lean on many of the same concepts, so we won't be focusing on
 those in this lecture.
 
-## Why should you care about it?
+### Why should you care about it?
 
 The shell is not just (usually) much faster than "clicking around", it
 also comes with expressive power you can't easily find in any one
@@ -146,7 +146,7 @@ for your software projects (as described in the [Code Quality
 lecture](/2026/code-quality/)), and debugging errors when other programs
 fail.
 
-## Navigating in the shell
+### Navigating in the shell
 
 When you launch your terminal, you will see a _prompt_ that often looks
 a little like this:
@@ -259,7 +259,7 @@ is when using a relative one!
 > `cd`ing --- `z` will remember the paths you frequently visit and let
 > you access with less typing.
 
-## What is available in the shell?
+### What is available in the shell?
 
 But how does the shell know how to find programs like `date` or `echo`?
 If the shell is asked to execute a command, it consults an _environment
@@ -411,7 +411,7 @@ username from each such message, and prints the top 10 usernames
 comma-separated. All in one command! We'll leave dissecting each step as
 an exercise.
 
-## The shell language (bash)
+### The shell language (bash)
 
 The previous example introduced a new concept: pipes (`|`). These let
 you string together the output of one program with the input of another.
@@ -478,25 +478,25 @@ printing the output only of the failed run, while stressing your CPU in
 the background (useful to reproduce flaky tests for example):
 
 ```bash
-#!/bin/bash
+##!/bin/bash
 set -euo pipefail
 
-# Start CPU stress in background
+## Start CPU stress in background
 stress --cpu 8 &
 STRESS_PID=$!
 
-# Setup log file
+## Setup log file
 LOGFILE="test_runs_$(date +%s).log"
 echo "Logging to $LOGFILE"
 
-# Run tests until one fails
+## Run tests until one fails
 RUN=1
 while cargo test my_test > "$LOGFILE" 2>&1; do
     echo "Run $RUN passed"
     ((RUN++))
 done
 
-# Cleanup and report
+## Cleanup and report
 kill $STRESS_PID
 echo "Test failed on run $RUN"
 echo "Last 20 lines of output:"
@@ -540,7 +540,7 @@ shell script as a whole also exits early.
 > translating them to a "real" programming language (like Python) when
 > they've grown too unwieldy for bash (100+ lines).
 
-# Next steps
+## Next steps
 
 At this point you know your way around a shell enough to accomplish
 basic tasks. You should be able to navigate around to find files of
@@ -549,7 +549,7 @@ lecture, we will talk about how to perform and automate more complex
 tasks using the shell and the many handy command-line programs out
 there.
 
-# Exercises
+## Exercises
 
 All classes in this course are accompanied by a series of exercises.
 Some give you a specific task to do, while others are open-ended, like

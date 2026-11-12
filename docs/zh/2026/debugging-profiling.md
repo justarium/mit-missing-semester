@@ -14,9 +14,9 @@ video:
 
 A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do. Bridging that gap can sometimes be a quite difficult feat. In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
 
-# Debugging
+## Debugging
 
-## Printf Debugging and Logging
+### Printf Debugging and Logging
 
 > [!TIP]
 > "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
@@ -40,7 +40,7 @@ without modifying the code.
 > [!TIP]
 > **Third-party logs**: Many programs support the `-v` or `--verbose` flag to print more information when they run. This can be useful for discovering why a given command fails. Some even allow repeating the flag for more details. When debugging issues with services (databases, web servers, etc.), check their logs—often in `/var/log/` on Linux. Use `journalctl -u <service>` to view logs for systemd services. For third-party libraries, check if they support debug logging via environment variables or configuration.
 
-## Debuggers
+### Debuggers
 
 Print debugging works well when you know what to print and can easily modify and re-run your code. Debuggers become valuable when you're not sure what information you need, when the bug only manifests in hard-to-reproduce conditions, or when modifying and restarting the program is expensive (long startup times, complex state to recreate, etc.).
 
@@ -69,7 +69,7 @@ Some useful GDB commands:
 > [!TIP]
 > Consider using GDB's TUI mode (`gdb -tui` or press `Ctrl-x a` inside GDB) for a split-screen view showing source code alongside the command prompt.
 
-### Record-Replay Debugging
+#### Record-Replay Debugging
 
 Some of the most frustrating bugs are _Heisenbugs_: bugs that seem to disappear or change behavior when you try to observe them. Race conditions, timing-dependent bugs, and issues that only appear under certain system conditions fall into this category. Traditional debugging is often useless here because running the program again produces different behavior (e.g., print statements may slow down the code sufficiently that the race no longer happens).
 
@@ -80,10 +80,10 @@ Some of the most frustrating bugs are _Heisenbugs_: bugs that seem to disappear 
 Basic usage:
 
 ```bash
-# Record a program execution
+## Record a program execution
 rr record ./my_program
 
-# Replay the recording (opens GDB)
+## Replay the recording (opens GDB)
 rr replay
 ```
 
@@ -113,28 +113,28 @@ This is incredibly powerful for debugging. Say you have a crash—instead of gue
 > [!TIP]
 > **rr and concurrency**: Because rr records execution deterministically, it serializes thread scheduling. This means some race conditions may not manifest under rr if they depend on specific timing. rr is still useful for debugging races—once you capture a failing run, you can replay it reliably—but you may need multiple recording attempts to catch an intermittent bug. For bugs that don't involve concurrency, rr shines brightest: you can always reproduce the exact execution and use reverse debugging to hunt down corruption.
 
-## System Call Tracing
+### System Call Tracing
 
 Sometimes you need to understand how your program interacts with the operating system. Programs make [system calls](https://en.wikipedia.org/wiki/System_call) to request services from the kernel—opening files, allocating memory, creating processes, and more. Tracing these calls can reveal why a program is hanging, what files it's trying to access, or where it's spending time waiting.
 
-### strace (Linux) and dtruss (macOS)
+#### strace (Linux) and dtruss (macOS)
 
 [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) lets you observe every system call a program makes:
 
 ```bash
-# Trace all system calls
+## Trace all system calls
 strace ./my_program
 
-# Trace only file-related calls
+## Trace only file-related calls
 strace -e trace=file ./my_program
 
-# Follow child processes (important for programs that start other programs)
+## Follow child processes (important for programs that start other programs)
 strace -f ./my_program
 
-# Trace a running process
+## Trace a running process
 strace -p <PID>
 
-# Show timing information
+## Show timing information
 strace -T ./my_program
 ```
 
@@ -144,15 +144,15 @@ strace -T ./my_program
 > [!TIP]
 > For deeper dives into `strace`, check out Julia Evans' excellent [strace zine](https://jvns.ca/strace-zine-unfolded.pdf).
 
-### bpftrace and eBPF
+#### bpftrace and eBPF
 
 [eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) is a powerful Linux technology that allows running sandboxed programs in the kernel. [`bpftrace`](https://github.com/iovisor/bpftrace) provides a high-level syntax for writing eBPF programs. These are arbitrary programs running in the kernel, and thus have huge expressive power (though also a somewhat clumsy awk-like syntax). The most common use-case for them is to investigate what system calls are being invoked, including aggregations (like counts or latency statistics) or introspecting (or even filtering on) system call arguments.
 
 ```bash
-# Trace file opens system-wide (prints immediately)
+## Trace file opens system-wide (prints immediately)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm, str(args->filename)); }'
 
-# Count system calls by name (prints summary on Ctrl-C)
+## Count system calls by name (prints summary on Ctrl-C)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* { @[probe] = count(); }'
 ```
 
@@ -161,34 +161,34 @@ However, you can also write eBPF programs directly in C using a toolchain like [
 Where `strace` is useful because it's easy to "just get up and running", `bpftrace` is what you should reach for when you need lower overhead, want to trace through kernel functions, need to do any kind of aggregation, etc. Note that `bpftrace` has to run as `root` though, and that it generally monitors the entire kernel, not just a particular process. To target a specific program, you can filter by command name or PID:
 
 ```bash
-# Filter by command name (prints summary on Ctrl-C)
+## Filter by command name (prints summary on Ctrl-C)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /comm == "bash"/ { @[probe] = count(); }'
 
-# Trace a specific command from startup using -c (cpid = child PID)
+## Trace a specific command from startup using -c (cpid = child PID)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /pid == cpid/ { @[probe] = count(); }' -c 'ls -la'
 ```
 
 The `-c` flag runs the specified command and sets `cpid` to its PID, which is useful for tracing a program from the moment it starts. When the traced command exits, bpftrace prints the aggregated results.
 
-### Network Debugging
+#### Network Debugging
 
 For network issues, [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) let you capture and analyze network packets:
 
 ```bash
-# Capture packets on port 80
+## Capture packets on port 80
 sudo tcpdump -i any port 80
 
-# Capture and save to file for Wireshark analysis
+## Capture and save to file for Wireshark analysis
 sudo tcpdump -i any -w capture.pcap
 ```
 
 For HTTPS traffic, the encryption makes tcpdump less useful. Tools like [mitmproxy](https://mitmproxy.org/) can act as an intercepting proxy to inspect encrypted traffic. Browser developer tools (Network tab) are often the easiest way to debug HTTPS requests from web applications—they show decrypted request/response data, headers, and timing.
 
-## Memory Debugging
+### Memory Debugging
 
 Memory bugs—buffer overflows, use-after-free, memory leaks—are among the most dangerous and difficult to debug. They often don't crash immediately but corrupt memory in ways that cause problems much later.
 
-### Sanitizers
+#### Sanitizers
 
 One approach to finding memory bugs is to use **sanitizers**, which are compiler features that instrument your code to detect errors at runtime. For example, the widely used **AddressSanitizer (ASan)** detects:
 - Buffer overflows (stack, heap, and global)
@@ -197,7 +197,7 @@ One approach to finding memory bugs is to use **sanitizers**, which are compiler
 - Memory leaks
 
 ```bash
-# Compile with AddressSanitizer
+## Compile with AddressSanitizer
 gcc -fsanitize=address -g program.c -o program
 ./program
 ```
@@ -210,7 +210,7 @@ There are a variety of useful sanitizers:
 
 Sanitizers require recompilation but are fast enough to use in CI pipelines and during regular development.
 
-### Valgrind: When You Can't Recompile
+#### Valgrind: When You Can't Recompile
 
 [Valgrind](https://valgrind.org/) instead runs your program in something akin to a virtual machine to detect memory errors. It's slower than sanitizers but doesn't require recompilation:
 
@@ -225,7 +225,7 @@ Use Valgrind when:
 
 Valgrind is actually a really powerful controlled execution environment, and we'll see more of it later when we get to profiling!
 
-## AI for Debugging
+### AI for Debugging
 
 Large language models have become surprisingly useful debugging assistants. They excel at certain debugging tasks that complement traditional tools.
 
@@ -251,11 +251,11 @@ Large language models have become surprisingly useful debugging assistants. They
 > [!TIP]
 > This is distinct from the [general AI coding capabilities](/2026/development-environment/#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
 
-# Profiling
+## Profiling
 
 Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process. Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs. Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
 
-## Timing
+### Timing
 
 The simplest way to measure performance is to time things. In many scenarios it can be enough to just print the time it took your code between two points.
 
@@ -274,7 +274,7 @@ sys	    0m0.028s
 
 Here the request took nearly 300 milliseconds (real time) but only 107ms of CPU time (user + sys). The rest was waiting for the network.
 
-## Resource Monitoring
+### Resource Monitoring
 
 Sometimes the first step towards analyzing the performance of your program is to understand what its actual resource consumption is. Programs often run slowly when they are resource constrained.
 
@@ -290,7 +290,7 @@ Sometimes the first step towards analyzing the performance of your program is to
 
 - **Network Usage**: [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage per process.
 
-## Visualizing Performance Data
+### Visualizing Performance Data
 
 Humans spot patterns in graphs much faster than in tables of numbers. When analyzing performance, plotting your data often reveals trends, spikes, and anomalies that would be invisible in raw numbers.
 
@@ -299,7 +299,7 @@ Humans spot patterns in graphs much faster than in tables of numbers. When analy
 **Quick plotting with gnuplot**: For simple command-line plotting, [`gnuplot`](http://www.gnuplot.info/) can generate graphs directly from data files:
 
 ```bash
-# Plot a simple CSV with timestamp,value
+## Plot a simple CSV with timestamp,value
 gnuplot -e "set datafile separator ','; plot 'latency.csv' using 1:2 with lines"
 ```
 
@@ -310,7 +310,7 @@ gnuplot -e "set datafile separator ','; plot 'latency.csv' using 1:2 with lines"
 - Visualizing insert times for a growing data structure can expose algorithmic complexity issues—a plot of vector insertions will show characteristic spikes when the backing array doubles in size
 - Faceting metrics by different dimensions (request type, user cohort, server) often reveals that a "system-wide" problem is actually isolated to one category
 
-## CPU Profilers
+### CPU Profilers
 
 Most of the time when people refer to _profilers_ they mean _CPU profilers_. There are two main types:
 
@@ -319,7 +319,7 @@ Most of the time when people refer to _profilers_ they mean _CPU profilers_. The
 
 Sampling profilers have lower overhead and are generally preferred for production use.
 
-### perf: the sampling profiler
+#### perf: the sampling profiler
 
 [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) is the standard Linux profiler. It can profile any program without recompilation:
 
@@ -349,25 +349,25 @@ A flame graph displays a hierarchy of function calls across the Y axis and time 
 To generate a flame graph from `perf` data:
 
 ```bash
-# Record profile
+## Record profile
 perf record -g ./my_program
 
-# Generate flame graph (requires flamegraph scripts)
+## Generate flame graph (requires flamegraph scripts)
 perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
 ```
 
 > [!TIP]
 > Consider using [Speedscope](https://www.speedscope.app/) for an interactive web-based flame graph viewer, or [Perfetto](https://perfetto.dev/) for comprehensive system-level analysis.
 
-### Valgrind's Callgrind: the tracing profiler
+#### Valgrind's Callgrind: the tracing profiler
 
 [`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) is a profiling tool that records the call history and instruction counts of your program. Unlike sampling profilers, it provides exact call counts and can show the relationship between callers and callees:
 
 ```bash
-# Run with callgrind
+## Run with callgrind
 valgrind --tool=callgrind ./my_program
 
-# Analyze with callgrind_annotate (text) or kcachegrind (GUI)
+## Analyze with callgrind_annotate (text) or kcachegrind (GUI)
 callgrind_annotate callgrind.out.<pid>
 kcachegrind callgrind.out.<pid>
 ```
@@ -377,11 +377,11 @@ Callgrind is slower than sampling profilers but provides precise call counts and
 > [!TIP]
 > If you're using a particular language, there may be more specialized profilers. For example, Python has [`cProfile`](https://docs.python.org/3/library/profile.html) and [`py-spy`](https://github.com/benfred/py-spy), Go has [`go tool pprof`](https://pkg.go.dev/cmd/pprof), and Rust has [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph) (which actually works for any compiled program!).
 
-## Memory Profilers
+### Memory Profilers
 
 Memory profilers help you understand how your program uses memory over time and find memory leaks.
 
-### Valgrind's Massif
+#### Valgrind's Massif
 
 [`massif`](https://valgrind.org/docs/manual/ms-manual.html) profiles heap memory usage:
 
@@ -395,7 +395,7 @@ This shows you heap usage over time, helping identify memory leaks and excessive
 > [!TIP]
 > For Python, [`memory-profiler`](https://pypi.org/project/memory-profiler/) provides line-by-line memory usage information.
 
-## Benchmarking
+### Benchmarking
 
 When you need to compare the performance of different implementations or tools, [`hyperfine`](https://github.com/sharkdp/hyperfine) is excellent for benchmarking command-line programs:
 
@@ -417,9 +417,9 @@ Summary
 > [!TIP]
 > For web development, browser developer tools include excellent profilers. See the [Firefox Profiler](https://profiler.firefox.com/docs/) and [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) documentation.
 
-# Exercises
+## Exercises
 
-## Debugging
+### Debugging
 
 1. **Debug a sorting algorithm**: The following pseudocode implements merge sort but contains a bug. Implement it in a language of your choice, then use a debugger (gdb, lldb, pdb, or your IDE's debugger) to find and fix the bug.
 
@@ -528,7 +528,7 @@ Summary
 
 1. Use an LLM to help debug a cryptic error message. Try copying a compiler error (especially from C++ templates or Rust) and asking for an explanation and fix. Try putting some of the output from `strace` or the address sanitizer into it.
 
-## Profiling
+### Profiling
 
 1. Use `perf stat` to get basic performance statistics for a program of your choice. What do the different counters mean?
 

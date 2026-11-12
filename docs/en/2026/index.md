@@ -31,7 +31,7 @@ phony: true
 
 Video recordings of the lectures are available [on YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L).
 
-# Beyond MIT
+## Beyond MIT
 
 We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
 
@@ -44,6 +44,6 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
 - [LinkedIn](https://www.linkedin.com/posts/anishathalye_i-returned-to-mit-during-iap-january-term-activity-7430285026933522433-Ehr9)
 - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L)
 
-# Acknowledgments
+## Acknowledgments
 
 We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
