@@ -80,9 +80,9 @@ email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 # Topic 1: The Shell
 
-{% comment %}
+<!-- {% comment %}
 lecturer: Jon
-{% endcomment %}
+{% endcomment %} -->
 
 ## What is the shell?
 
@@ -195,6 +195,7 @@ arguments you can pass it to alter its behavior. You can also usually
 get a short version of the help by passing `--help` as an argument to
 most commands.
 
+> [!TIP]
 > Consider installing and using [`tldr`](https://tldr.sh/) in addition
 > to `man`, as it shows you common usage examples right there in the
 > terminal. LLMs are also usually very good at explaining how commands
@@ -213,6 +214,7 @@ missing:/$ cd ~
 missing:~$
 ```
 
+> [!TIP]
 > Note that the shell comes with auto-completion, so you can often
 > complete paths faster by pressing `<TAB>`!
 
@@ -251,6 +253,7 @@ You can usually use absolute and relative paths interchangeably for any
 command argument, just keep in mind what your current working directory
 is when using a relative one!
 
+> [!TIP]
 > Consider installing and using
 > [`zoxide`](https://github.com/ajeetdsouza/zoxide) to speed up your
 > `cd`ing --- `z` will remember the paths you frequently visit and let
@@ -289,6 +292,7 @@ to the `ls` program, which lists files:
 missing:~$ ls /bin
 ```
 
+> [!TIP]
 > Consider installing and using [`eza`](https://eza.rocks/) for a more
 > human-friendly `ls`.
 
@@ -301,6 +305,7 @@ focus on some of the most important ones here. First, some simple ones:
 - `head file` and `tail file`, which respectively print the first and
   last few lines of `file`.
 
+> [!TIP]
 > Consider installing and using [`bat`](https://github.com/sharkdp/bat)
 > over `cat` for syntax highlighting and scrolling.
 
@@ -314,6 +319,7 @@ in the code quality lecture. You can also specify a directory instead of a
 file (or leave it off for `.`) and pass `-r` to recursively search all
 the files in a directory.
 
+> [!TIP]
 > Consider installing and using
 > [`ripgrep`](https://github.com/BurntSushi/ripgrep) over `grep` for a
 > faster and more human-friendly (but less portable) alternative.
@@ -368,6 +374,7 @@ Finds any `.py` files with TODO items in them.
 The syntax of `find` can be a little daunting, but hopefully this gives
 you a sense of how useful it can be!
 
+> [!TIP]
 > Consider installing and using [`fd`](https://github.com/sharkdp/fd)
 > instead of `find` for a more human-friendly (but less portable!)
 > experience.
@@ -428,6 +435,7 @@ to analyze after the fact. `>>file` will append to `file` rather than
 overwrite it. There's also `<file` which tells the shell to read from
 `file` instead of from your keyboard as the standard input to a program.
 
+> [!TIP]
 > This is a good time to mention the `tee` program. `tee` will print
 > standard input to standard output (just like `cat`!), but will _also_
 > write it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
@@ -521,6 +529,7 @@ crashes the script rather than just using an empty string; and `-o
 pipefail` makes it so that if programs in a `|` sequence fail, the
 shell script as a whole also exits early.
 
+> [!TIP]
 > Shell programming is a deep topic, just as any programming language
 > is, but be warned: bash has an unusual number of gotchas, to the point
 > that there are [multiple](https://tldp.org/LDP/abs/html/gotchas.html)

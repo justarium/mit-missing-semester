@@ -32,20 +32,20 @@ applicable AI tools and techniques into each lecture directly.
 
 Read about the [motivation behind this class](/about/).
 
-{% comment %}
+<!-- {% comment %}
 # Registration
 
 Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
-{% endcomment %}
+{% endcomment %} -->
 
 # Syllabus
 
-{% comment %}
+<!-- {% comment %}
 **Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
 **Discussion**: [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors)
-{% endcomment %}
+{% endcomment %} -->
 
-<ul>
+<!-- <ul>
 {% assign lectures = site['2026'] | sort: 'date' %}
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
@@ -59,14 +59,24 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
         </li>
     {% endif %}
 {% endfor %}
-</ul>
+</ul> -->
+
+*   **1/12/26**: [Course Overview + Introduction to the Shell](2026/course-shell.md)
+*   **1/13/26**: [Command-line Environment](2026/command-line-environment.md)
+*   **1/14/26**: [Development Environment and Tools](2026/development-environment.md)
+*   **1/15/26**: [Debugging and Profiling](2026/debugging-profiling.md)
+*   **1/16/26**: [Version Control and Git](2026/version-control.md)
+*   **1/20/26**: [Packaging and Shipping Code](2026/shipping-code.md)
+*   **1/21/26**: [Agentic Coding](2026/agentic-coding.md)
+*   **1/22/26**: [Beyond the Code](2026/beyond-code.md)
+*   **1/23/26**: [Code Quality](2026/code-quality.md)
 
 ## Special topics from previous years
 
 The topics we cover vary from year to year. For students who are interested in the complete set of topics we have covered over the years, we highlight topics covered in previous years that we did not cover in 2026.
 
-{% comment %} pop to remove default "posts" collection {% endcomment %}
-{% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
+<!-- {% comment %} pop to remove default "posts" collection {% endcomment %} -->
+<!-- {% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
 <ul>
 {% for collection in sorted_collections %}
     {% assign grouped_lectures = site[collection.label] | group_by: 'date' | sort: 'name' %}
@@ -82,15 +92,26 @@ The topics we cover vary from year to year. For students who are interested in t
         {% endfor %}
     {% endfor %}
 {% endfor %}
-</ul>
+</ul> -->
 
-{% comment %}
+*   **1/16/20**: [Data Wrangling](2020/data-wrangling.md)
+*   **1/28/20**: [Security and Cryptography](2020/security.md)
+*   **1/29/20**: [Potpourri](2020/potpourri.md)
+*   **1/30/20**: [Q&A](2020/qa.md)
+*   **1/24/19**: [Backups](2019/backups.md)
+*   **1/24/19**: [Automation](2019/automation.md)
+*   **1/24/19**: [Machine Introspection](2019/machine-introspection.md)
+*   **1/29/19**: [OS Customization](2019/os-customization.md)
+*   **1/31/19**: [Web and Browsers](2019/web.md)
+*   **1/31/19**: [Security and Privacy](2019/security.md)
+
+<!-- {% comment %}
 Lecture videos will be made available to MIT students immediately after lecture (via Panopto). The system has a limitation that only those with an MIT Kerberos can access the raw lecture videos. We are working on editing lecture videos and uploading them to YouTube. A couple have been uploaded already; we expect the rest to be uploaded by mid-February.
 
 If you can't wait until January 2026, you can also take a look at the lectures
 from the [previous offering of the course](/2020/), which covers many of the
 same topics.
-{% endcomment %}
+{% endcomment %} -->
 
 # General information
 
@@ -115,7 +136,7 @@ benefit from these resources. You can find posts and discussion on
 
 # Translations
 
-{% comment %} keep these in alphabetical order {% endcomment %}
+<!-- {% comment %} keep these in alphabetical order {% endcomment %} -->
 
 - [Arabic](https://missing-semester-ar.github.io/)
 - [Bengali](https://missing-semester-bn.github.io/)
@@ -147,9 +168,9 @@ we can add it to the list!
 
 ## Acknowledgments
 
-{% comment %}
+<!-- {% comment %}
 2026 acks; previous years' acks are on their respective pages
-{% endcomment %}
+{% endcomment %} -->
 
 We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
 

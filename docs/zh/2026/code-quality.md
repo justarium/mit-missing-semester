@@ -78,6 +78,7 @@ Git 的 pre-commit [钩子](https://git-scm.com/book/en/v2/Customizing-Git-Git-H
 
 [![Build Status](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml) [![Links Status](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml)
 
+> [!TIP]
 > 我们的[链接检查器](https://github.com/missing-semester/missing-semester/blob/master/.github/workflows/links.yml)使用 [proof-html](https://github.com/anishathalye/proof-html) GitHub Action，它经常失败，通常是因为第三方网站出了问题。即便如此，它仍然帮助我们发现并修复了许多失效链接（有时是因为拼写错误，但更多时候是因为网站在没有加重定向的情况下移动了内容，或者网站直接消失了）。
 
 学习 CI 服务、格式化器、linter 和测试库具体细节的好方法是通过示例。去 GitHub 上找高质量的开源项目来研究，越接近你的项目越好——比如编程语言、领域、规模和范围等都越相似越好——研究它们的 `pyproject.toml`、`.github/workflows/`、`DEVELOPMENT.md` 等相关文件。

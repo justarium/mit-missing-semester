@@ -74,6 +74,7 @@ Shell 程序在执行时会接收一个参数列表。
 选项顺序通常无所谓，`ls -la` 和 `ls -al` 结果相同。
 有些选项非常常用，随着你对 Shell 越来越熟悉，会本能地用到它们，比如 `--help`、`--verbose` 和 `--version`。
 
+> [!TIP]
 > 选项是 Shell 约定的一个绝佳例子。Shell 语言本身并不强制要求你用 `-` 或 `--`。
 > 你完全可以写个程序用 `myprogram +myoption myfile` 这种语法，但这会把大家搞懵，因为大家都默认该用横线。
 > 实际上，多数编程语言都提供了 CLI 参数解析库（比如 Python 的 `argparse` 用来解析带横线语法的参数）。
@@ -127,6 +128,7 @@ mv *{.py,.sh} folder
 # 会移动所有 *.py 和 *.sh 文件
 ```
 
+> [!TIP]
 > 有些 Shell（例如 zsh）还支持更高级的通配形式，比如 `**`，它会展开为递归路径。因此 `rm **/*.py` 会递归删除所有 `.py` 文件。
 
 
@@ -251,6 +253,7 @@ echo "$files" | grep ".py"
 在 Shell 里可以通过 `printenv` 查看当前环境变量。
 想显式给某个命令传环境变量，可以在命令前面直接加赋值：
 
+> [!TIP]
 > 按约定，环境变量一般写成全大写（如 `HOME`、`PATH`、`DEBUG`）。这不是硬性要求，但遵循约定能让环境变量与通常小写的本地 Shell 变量区分开来。
 
 ```shell
@@ -269,6 +272,7 @@ bash -c 'echo $DEBUG'
 
 要删除一个变量，可以使用内建命令 `unset`，例如 `unset DEBUG`。
 
+> [!TIP]
 > 环境变量也是 Shell 约定的一部分。它们可以隐式地修改很多程序的行为，不必显式传参。比如，Shell 把当前用户的家目录路径放进 `$HOME`，程序直接读这个变量即可，不用额外传 `--home /home/alice`。另一个常见例子是 `$TZ`，很多程序会根据它指定的时区来格式化日期和时间。
 
 ## 返回码
@@ -325,6 +329,7 @@ $ sleep 100
 $
 ```
 
+> [!TIP]
 > 注意，这里的 `^C` 是 `Ctrl-C` 在终端里的显示方式。
 
 底层实际发生的过程是这样的：
@@ -428,7 +433,7 @@ cleanup() {
 trap cleanup EXIT  # 当脚本退出时执行清理
 trap cleanup SIGINT SIGTERM  # 也可以按 Ctrl-C 或 Kill
 ```
-{% comment %}
+<!-- {% comment %}
 ### 用户，文件与权限
 
 最后，程序之间还有一种间接通信方式，就是通过文件。
@@ -477,6 +482,7 @@ $ ./script.sh
 
 运行 `tldr chmod` 可以看到更多例子，包括递归操作和用户组权限相关的用法。
 
+> [!TIP]
 > 你的 shell 可能会提示类似 `command not found: tldr` 的错误。这是因为它属于比较新的工具，大多数系统默认并不会预装。想查某个工具怎么安装，可以参考 [https://command-not-found.com](https://command-not-found.com) 这个网站。它收录了大量 CLI 工具在主流发行版上的安装说明。
 
 系统里的每个程序都会以某个特定用户的身份运行。我们可以用 `whoami` 查看当前用户名，用 `id -u` 查看 UID（user id），也就是操作系统分配给该用户的整数标识。
@@ -489,7 +495,7 @@ $ ./script.sh
 
 到目前为止，我们讨论的主要还是本地机器，但这些技能在远程服务器场景下往往会更有价值。
 
-{% endcomment %}
+{% endcomment %} -->
 
 # 远程机器
 
@@ -512,6 +518,7 @@ ssh alice@server 'ls | wc -l'
 
 ```
 
+> [!TIP]
 > 可以试试安装 [Mosh](https://mosh.org/) 作为 SSH 的替代品。它能更好地处理断线、设备休眠/唤醒、网络切换，以及高延迟链路等情况。
 
 要让 `ssh` 允许在远程服务器上执行命令，就必须先证明自己有这个权限。
@@ -594,6 +601,7 @@ Host *.mit.edu
     + `<C-b> [` 进入滚动回看模式。之后你可以按 `<space>` 开始选择，再按 `<enter>` 复制选中的内容。
     + `<C-b> <space>` 在不同 pane 布局之间轮换。
 
+> [!TIP]
 > 如果你想更深入了解 tmux，可以看看[这篇](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)快速教程，以及[这篇](https://linuxcommand.org/lc3_adv_termmux.php)更详细的说明。
 
 当你的工具箱里有了 tmux 和 SSH，大概也希望无论在哪台机器上都能把环境调成自己熟悉的样子。这时就该开始做 Shell 自定义了。
@@ -603,6 +611,7 @@ Host *.mit.edu
 很多命令行程序通过纯文本配置文件来配置，这类文件通常被称为 _dotfiles_。
 之所以叫这个名字，是因为文件名通常以 `.` 开头（如 `~/.vimrc`），默认在 `ls` 列表里是隐藏的。
 
+> [!TIP]
 > Dotfiles 也是 shell 世界里的另一种约定。文件名前面的点号就是为了在列目录时把它们“隐藏”起来（没错，又是一个约定）。
 
 Shell 本身就是通过 dotfiles 配置的程序之一。启动时会读取多个文件来加载配置。
@@ -642,6 +651,7 @@ brew install fd
 
 装好之后，你就可以用 `rg` 替代 `grep`，用 `fd` 替代 `find`。
 
+> [!TIP]
 > **关于 `curl | bash` 的提醒**：你经常会看到类似 `curl -fsSL https://example.com/install.sh | bash` 这样的安装命令。这个模式会先下载脚本，然后立刻执行，确实方便，但也有风险，因为你是在运行一段自己还没检查过的代码。更稳妥的做法是先下载、先看一遍，再执行：
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
@@ -679,6 +689,7 @@ alias 本质上是另一个命令的简写，Shell 在真正执行前会自动�
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
+> [!TIP]
 > 注意，等号 `=` 两边不能有空格，因为 [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) 是一个 shell 命令，它接收的是单个参数。
 
 alias 有不少很方便的用法：
@@ -742,6 +753,7 @@ dotfiles 应该怎么组织？推荐的做法是：放在一个单独的目录�
 
 像 [fish](https://fishshell.com/) 这样的 shell，默认就内置了很多这类功能。
 
+> [!TIP]
 > 想要这些功能，不一定非得用 oh-my-zsh 这种大而全的框架。单独安装需要的插件通常更快，也更容易掌控。大型框架可能明显拖慢 Shell 启动速度，所以最好只装真正会用到的部分。
 
 # Shell 中的 AI
@@ -816,9 +828,9 @@ sarah.connor
     drwx------+ 47 user group 1.5K Jan 12 18:08 ..
     ```
 
-{% comment %}
+<!-- {% comment %}
 ls -lath --color=auto
-{% endcomment %}
+{% endcomment %} -->
 
 1. 进程替换 `<(command)` 可以让你把一个命令的输出当成文件来用。试着配合 `diff` 和进程替换，比较 `printenv` 与 `export` 的输出。它们为什么不一样？（提示：可以试试 `diff <(printenv | sort) <(export | sort)`）
 
@@ -826,7 +838,7 @@ ls -lath --color=auto
 
 1. 写两个 bash 函数 `marco` 和 `polo`，行为如下：每次执行 `marco` 时，都要以某种方式保存当前工作目录；之后无论你切到哪个目录，只要执行 `polo`，它都应该把你 `cd` 回执行 `marco` 时所在的目录。为了方便调试，你可以把代码写进 `marco.sh`，然后通过执行 `source marco.sh` 把这些定义重新加载到当前 shell。
 
-{% comment %}
+<!-- {% comment %}
 marco() {
     export MARCO=$(pwd)
 }
@@ -834,7 +846,7 @@ marco() {
 polo() {
     cd "$MARCO"
 }
-{% endcomment %}
+{% endcomment %} -->
 
 ## 返回码
 
@@ -854,7 +866,7 @@ polo() {
     echo "Everything went according to plan"
     ```
 
-{% comment %}
+<!-- {% comment %}
 #!/usr/bin/env bash
 
 count=0
@@ -866,7 +878,7 @@ done
 
 echo "found error after $count runs"
 cat out.txt
-{% endcomment %}
+{% endcomment %} -->
 
 ## 信号与任务控制
 

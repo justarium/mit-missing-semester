@@ -83,6 +83,7 @@ In general, the body should answer:
 - What are the trade-offs or implications?
 - What might be surprising about this approach?
 
+> [!TIP]
 > Obviously you should scale detail with complexity. A one-line typo fix
 > needs only a subject. A subtle race condition fix that took hours to
 > debug deserves paragraphs explaining the problem and solution.
@@ -118,6 +119,7 @@ almost certainly slow down the eventual review of your changes. It also
 gives you superpowers through `git bisect`, but that's a story for
 another time.
 
+> [!TIP]
 > One note as you start being more diligent about technical writing, and
 > using it more extensively, make sure you respect the reader. It's easy
 > to end up over-explaining once you start, but you have to resist that
@@ -154,6 +156,7 @@ providing everything needed to understand and reproduce the problem:
 - **What you've already tried**: This prevents duplicate suggestions and
   shows you've done some investigation
 
+> [!TIP]
 > If you find a security vulnerability, don't post it publicly. Contact
 > the maintainers privately first and give them reasonable time to fix
 > it before disclosure. Many projects have a SECURITY.md file or
@@ -185,6 +188,7 @@ small; a typo fix or documentation improvement is a great first
 contribution as it helps you learn the project's processes without also
 having to go through lots of back and forth on the content.
 
+> [!TIP]
 > Check what license the project uses, as any code you contribute will
 > fall under the same license. In particular, look out for copyleft
 > licenses (like GPL), which requires derivatives to also be open source
@@ -213,6 +217,7 @@ review, if any. Depending on `CONTRIBUTING.md` and the nature of your
 change, reviewers may also expect to see additional information like
 trade-offs you made or how to test the change.
 
+> [!TIP]
 > We recommend contributing back to upstream projects rather than
 > "forking" the project, at least as a first approach. Forking (license
 > permitting) should be reserved for when the contributions you want to
@@ -236,6 +241,7 @@ they don't want to maintain, or where the need simply isn't sufficiently
 well-documented. It's on _you_ as the contributor to make the case for
 why accepting the contribution is worth the maintenance burden.
 
+> [!TIP]
 > When receiving feedback on a PR, remember that your code is not you!
 > Reviewers are trying to make the code better, not criticizing you
 > personally. Ask clarifying questions if you disagree — you might learn
@@ -281,6 +287,7 @@ some tips that can make them much better much faster:
   best spent handling all the nits. Focus on the big things, and
   consider tidying up nits yourself after the fact.
 
+> [!TIP]
 > AI tools can catch certain issues, but they're not a substitute for
 > human review. They miss context, don't understand product
 > requirements, and can confidently suggest wrong things. They're worth
@@ -322,6 +329,7 @@ Some particularly valuable pieces of advice are:
 Remember: well-crafted questions benefit entire communities. They
 surface hidden assumptions that others need to understand too.
 
+> [!TIP]
 > Note that this advice applies just as much when communicating with
 > LLMs!
 
@@ -349,6 +357,7 @@ of AI than others (e.g., for compliance or data residency reasons), and
 you don't want to accidentally run afoul of that. Being open about your
 use helps prevent potentially costly mistakes.
 
+> [!TIP]
 > If you're aiming to learn as part of the work you're doing, keep in
 > mind that if you have AI do all or most of the work for you can be
 > self-defeating; you're likely to learn more about prompting (and maybe
@@ -365,6 +374,7 @@ are evaluating your skill in making use of those tools too!), but those
 are still in the minority. If you are unsure about whether AI assistance
 is in scope for a particular task, ask!
 
+> [!TIP]
 > It should go without saying that if an assessment situation explicitly
 > calls for no external tools, no LLMs, etc., you should not use them.
 > Trying to do so discretely without getting caught **will** come back

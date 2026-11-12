@@ -128,6 +128,7 @@ You can think of an environment as an entire standalone version of the language 
 This virtual environment or venv isolates the installed dependencies from the global Python installation.
 It is a good practice to have a virtual environment for each project, containing the dependencies it requires.
 
+> [!TIP]
 > While many modern operating systems ship with installations of programming language runtimes like Python, it is unwise to modify these installations since the OS might rely on them for its own functionality. Prefer using separate environments instead.
 
 In some languages, the installation protocol is not defined by a tool but as a specification.
@@ -148,6 +149,7 @@ Installed 5 packages in 8ms
  + urllib3==2.2.3
 ```
 
+> [!TIP]
 > We strongly recommend using `uv pip` instead of `pip` whenever possible as it dramatically reduces the installation time.
 
 Beyond dependency isolation, environments also allow you to have different versions of your programming language runtime.
@@ -170,6 +172,7 @@ Python 3.11.10
 
 This helps when you need to test your code across multiple Python versions or when a project requires a specific version.
 
+> [!TIP]
 > In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
 
 # Artifacts & Packaging
@@ -197,6 +200,7 @@ In Python, packaging a library involves producing an artifact that package insta
 Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment.
 Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other information. In Python, we use `pyproject.toml` for this purpose.
 
+> [!TIP]
 > `pyproject.toml` is the modern and recommended way. While earlier packaging methods like `requirements.txt` or `setup.py` are still supported, you should prefer `pyproject.toml` whenever possible.
 
 Here's a minimal `pyproject.toml` for a library that also provides a command-line tool:
@@ -302,6 +306,7 @@ Changelogs document what changes a version introduces --- these are documents th
 
 However, keeping track of the ongoing changes in each and every dependency is impractical, even more so when we consider the transitive dependencies --- i.e. the dependencies of our dependencies.
 
+> [!TIP]
 > You can visualize the entire dependency tree of your project with `uv tree`, which shows all packages and their transitive dependencies in a tree format.
 
 To simplify this problem there are conventions on how to version software, and one of the most prevalent is [Semantic Versioning](https://semver.org/) or SemVer.
@@ -311,6 +316,7 @@ Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PA
 - MINOR (e.g., 1.2.3 → 1.3.0) adds new functionality in a backwards-compatible way
 - MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
 
+> [!TIP]
 > This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
 Python packaging supports standardized version specifiers defined by [PEP 440](https://peps.python.org/pep-0440/), so when we specify the versions of our dependencies we can use various constraints:
 
@@ -370,6 +376,7 @@ For libraries, it is good practice to specify version ranges to maximize compati
 
 For projects requiring maximum reproducibility, tools like [Nix](https://nixos.org/) and [Bazel](https://bazel.build/) provide _hermetic_ builds --- where every input including compilers, system libraries, and even the build environment itself is pinned and content-addressed. This guarantees bit-for-bit identical outputs regardless of when or where the build runs.
 
+> [!TIP]
 > You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
 
 A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
@@ -441,6 +448,7 @@ In the previous example we see that instead of installing `uv` from source, we a
 
 Docker has important limitations to be aware of. First, container images are often platform-specific --- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs --- containers share the host kernel, which is a security concern in multi-tenant environments.
 
+> [!TIP]
 > These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
 
 # Configuration

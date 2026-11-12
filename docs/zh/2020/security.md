@@ -222,13 +222,13 @@ Windows 的 [BitLocker](https://fossbytes.com/enable-full-disk-encryption-window
 简单来说，服务器选择一个随机数字发送给客户端。客户端使用用户私钥对这个数字信息签名后返回服务器。
 服务器随后使用 `.ssh/authorized_keys` 文件中存储的用户公钥来验证返回的信息是否由所对应的私钥所签名。这种验证方式可以有效证明试图登录的用户持有所需的私钥。
 
-{% comment %}
+<!-- {% comment %}
 extra topics, if there's time
 
 security concepts, tips
 - biometrics
 - HTTPS
-{% endcomment %}
+{% endcomment %} -->
 
 # 资源
 

@@ -74,6 +74,7 @@ Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equival
 The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
 Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
 
+> [!TIP]
 > Flags are a first good example of shell conventions. The shell language does not require that our program uses `-` or `--` in this particular way.
 Nothing prevents us from writing a program with syntax `myprogram +myoption myfile`, but it would lead to confusion since the expectation is that we use dashes.
 > In practice, most programming languages provide CLI flag parsing libraries (e.g. `argparse` in python to parse arguments with the dash syntax).
@@ -127,6 +128,7 @@ mv *{.py,.sh} folder
 # Will move all *.py and *.sh files
 ```
 
+> [!TIP]
 > Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
 
 
@@ -251,6 +253,7 @@ Whenever a shell program calls another program it passes along a set of variable
 From within a shell we can find the current environment variables by running `printenv`.
 To pass an environment variable explicitly we can prepend a command with a variable assignment
 
+> [!TIP]
 > Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
 
 ```shell
@@ -269,6 +272,7 @@ bash -c 'echo $DEBUG'
 
 To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
 
+> [!TIP]
 > Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
 
 ## Return codes
@@ -325,6 +329,7 @@ $ sleep 100
 $
 ```
 
+> [!TIP]
 > Note, here `^C` is how `Ctrl-C` is displayed when typed in the terminal.
 
 Under the hood, what happened here is the following:
@@ -427,7 +432,7 @@ cleanup() {
 trap cleanup EXIT  # Run cleanup when script exits
 trap cleanup SIGINT SIGTERM  # Also on Ctrl-C or kill
 ```
-{% comment %}
+<!-- {% comment %}
 ### Users, Files and Permissions
 
 Lastly, another way programs have to indirectly communicate with each other is using files.
@@ -476,6 +481,7 @@ If you, like me, prefer to learn by example, this is a good usecase of the `tldr
 
 Run `tldr chmod` to see more examples, including recursive operations and group permissions.
 
+> [!TIP]
 > Your shell might show you something like `command not found: tldr`. That is because it is a more modern tool and it is not pre-installed in most systems. A good reference for how to install tools is the [https://command-not-found.com](https://command-not-found.com) website. It contains instructions for a huge collection of CLI tools for popular OS distributions.
 
 Each program is run as a specific user in the system. We can use the `whoami` command to find our user name and `id -u` to find our UID (user id) which is the integer value that the OS associates with the user.
@@ -488,7 +494,7 @@ You can learn more about UNIX file permissions [here](https://en.wikipedia.org/w
 
 So far we've focused on your local machine, but many of these skills become even more valuable when working with remote servers.
 
-{% endcomment %}
+{% endcomment %} -->
 
 # Remote Machines
 
@@ -511,6 +517,7 @@ ssh alice@server 'ls | wc -l'
 
 ```
 
+> [!TIP]
 > Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
 
 For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
@@ -591,6 +598,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
     + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
     + `<C-b> <space>` Cycle through pane arrangements.
 
+> [!TIP]
 > To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
 
 With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
@@ -601,6 +609,7 @@ A wide array of command line programs are configured using plain-text files know
 (because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
 hidden in the directory listing `ls` by default).
 
+> [!TIP]
 > Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
 
 Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
@@ -640,6 +649,7 @@ brew install fd
 
 With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
 
+> [!TIP]
 > **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
@@ -677,6 +687,7 @@ For instance, an alias in bash has the following structure:
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
+> [!TIP]
 > Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
 
 Aliases have many convenient features:
@@ -755,6 +766,7 @@ All of the class instructors have their dotfiles publicly accessible on GitHub: 
 
 Shells like [fish](https://fishshell.com/) include many of these features by default.
 
+> [!TIP]
 > You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
 
 
@@ -832,9 +844,9 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
     drwx------+ 47 user group 1.5K Jan 12 18:08 ..
     ```
 
-{% comment %}
+<!-- {% comment %}
 ls -lath --color=auto
-{% endcomment %}
+{% endcomment %} -->
 
 1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
 
@@ -842,7 +854,7 @@ ls -lath --color=auto
 
 1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
 
-{% comment %}
+<!-- {% comment %}
 marco() {
     export MARCO=$(pwd)
 }
@@ -850,7 +862,7 @@ marco() {
 polo() {
     cd "$MARCO"
 }
-{% endcomment %}
+{% endcomment %} -->
 
 ## Return Codes
 
@@ -870,7 +882,7 @@ polo() {
     echo "Everything went according to plan"
     ```
 
-{% comment %}
+<!-- {% comment %}
 #!/usr/bin/env bash
 
 count=0
@@ -882,7 +894,7 @@ done
 
 echo "found error after $count runs"
 cat out.txt
-{% endcomment %}
+{% endcomment %} -->
 
 ## Signals and Job Control
 

@@ -36,9 +36,9 @@ video:
 
 # 主题一：Shell
 
-{% comment %}
+<!-- {% comment %}
 lecturer: Jon
-{% endcomment %}
+{% endcomment %} -->
 
 ## Shell 是什么？
 
@@ -96,6 +96,7 @@ hello
 对初学者来说最重要的命令大概是 `man`，即 manual（手册）的缩写。
 `man` 可以帮你查询系统中任意命令的详细说明。比如运行 `man date`，它会告诉你 `date` 是什么、可以传入哪些参数来改变行为。对大多数命令来说，加上 `--help` 也能查看简短的帮助信息。
 
+> [!TIP]
 > 除了 `man` 之外，我们也推荐安装 [`tldr`](https://tldr.sh/) ：它会直接在终端里给出常见的命令使用示例，非常方便。此外，大语言模型通常也很擅长解释命令的工作原理，以及应该如何调用命令来实现你想完成的任务。
 
 学会 `man` 之后，下一个最重要的是 `cd`（change directory，切换目录）。它实际上是 Shell 的内建命令，而不是独立程序（所以 `which cd` 会显示 `no cd found`）。给它传入一个路径，该路径就会成为你的当前工作目录，提示符也会随之变化。
@@ -107,6 +108,7 @@ missing:/$ cd ~
 missing:~$
 ```
 
+> [!TIP]
 > 需要注意的是，Shell 通常自带自动补全功能，所以按下 <kbd>Tab</kbd> 往往能更快地补全路径。
 
 许多命令在未指定路径时，默认作用于当前工作目录。如果不确定自己在哪个目录，可以运行 `pwd`（print working directory，打印当前工作目录），或者查看 `$PWD` 环境变量（如 `echo $PWD`）。两者都会输出当前路径。
@@ -131,6 +133,7 @@ missing:/$
 
 大多数情况下，绝对路径和相对路径可以互换使用；但使用相对路径时，一定要清楚自己当前在哪个目录！
 
+> [!TIP]
 > 我们建议安装并使用 [`zoxide`](https://github.com/ajeetdsouza/zoxide) 来加速 `cd` 操作。它提供的 `z` 命令会记住你经常访问的路径，让你用更少的输入实现快速跳转。
 
 ## Shell 中有哪些可用的程序？
@@ -155,6 +158,7 @@ missing:~$ /bin/echo $PATH
 missing:~$ ls /bin
 ```
 
+> [!TIP]
 > 我们建议安装并使用 [`eza`](https://eza.rocks/)，它是一个更加现代友好的工具，用于替代 `ls` 。
 
 在大多数计算机上，这会**列出非常多的程序**，但我们只关注其中最重要的几个。先从简单的开始：
@@ -164,6 +168,7 @@ missing:~$ ls /bin
 - `uniq hello.txt`：去除 `hello.txt` 中连续重复的行
 - `head hello.txt` 和 `tail hello.txt`：分别打印 `hello.txt` 的前几行和后几行
 
+> [!TIP]
 > 我们建议安装并使用 [`bat`](https://github.com/sharkdp/bat) 来替代 `cat`，它支持语法高亮和分页滚动。
 
 还有 `grep pattern hello.txt`，它会在指定文本文件中查找所有匹配 `pattern` 的行。这个命令非常实用，值得多花些时间了解，它的功能比你想象的要丰富得多。
@@ -172,6 +177,7 @@ missing:~$ ls /bin
 
 除了指定单个文件，你也可以指定一个目录作为搜索范围（或者直接不写，默认就是当前目录 `.` ），并加上 `-r` 参数让 `grep` 递归搜索目录里的所有文本文件，输出匹配的行。
 
+> [!TIP]
 > 如果想要更快、更好用的体验，可以考虑安装 [`ripgrep`](https://github.com/BurntSushi/ripgrep) 来替代 `grep` 。它默认就会递归搜索当前工作目录里的文本文件，使用起来更直观，但可移植性稍弱一些。
 
 还有一些实用工具，使用方式稍微复杂一些。先看 `sed`——一个可编程的文件编辑器。它有自己的「小语言」，可以自动化地修改文件。最常见的用法是：
@@ -186,6 +192,7 @@ missing:~$ sed -i 's/pattern/replacement/g' hello.txt
 - 两个 `/` 用来分隔「匹配模式」和「替换内容」
 - 结尾的 `/g` 表示在每一行中**替换所有匹配项**，而不仅仅是第一个
 
+> [!TIP]
 > 译者注：<br> 
 > `sed` 是 stream editor（流编辑器） 的缩写，最早设计用来对输入流中的文本进行自动化处理，而不仅仅是单个文件。<br>
 > `s/` 为什么表示替换：在 `sed` 的命令语法里，`s` 就是 substitute（替换） 的首字母，表示「把匹配到的内容替换成其他内容」。<br>
@@ -215,6 +222,7 @@ missing:~$ find . -name "*.py" -exec grep -l "TODO" {} \;
 
 `find` 的语法可能有点吓人，但希望这些例子能让你感受到它的实用！
 
+> [!TIP]
 > 我们建议安装并使用 [`fd`](https://github.com/sharkdp/fd) 来替代 find，它更加人性化（但可移植性稍弱）。
 
 接下来介绍 `awk`，它和 `sed` 一样有自己的小语言。如果说 `sed` 专门用来编辑文件，那 `awk` 则专门用来解析文件。
@@ -255,6 +263,7 @@ postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
 
 先说重定向：`> file` 把程序的标准输出写入 `file` 而不是显示在终端，方便后续分析。`>> file` 追加到 `file` 而不是覆盖。`< file` 让程序从 `file` 读取输入而不是从键盘。
 
+> [!TIP]
 > 这里正好提一下 `tee` 程序。`tee` 会把标准输入原样输出到标准输出（和 `cat` 一样），但**同时也会把内容写入文件**。所以像 `verbose cmd | tee verbose.log | grep CRITICAL` 这样的命令，既能把完整的详细日志保存到文件里，又能让终端里只保留筛选后的关键信息，保持终端整洁。
 
 接着是条件语句：`if command1; then command2; command3; fi` 会先执行 `command1`，成功则继续执行 `command2` 和 `command3`。也可以加 `else` 分支。最常作为 `command1` 的是 `test` 命令，通常简写为 `[`，可用于判断「文件是否存在」（`test -f file` / `[ -f file ]`）或「字符串是否相等」（`[ "$var" = "string" ]`）等条件。bash 还有 `[[ ]]`，是 test 的一种更安全的内置形式，在引号处理等方面的怪异行为更少。
@@ -311,6 +320,7 @@ echo "Full log: $LOGFILE"
 - `-u` 表示使用未定义变量时直接报错，而不是默默当作空字符串
 - `-o pipefail` 表示在 `|` 管道序列中，只要有程序失败，整个脚本也会尽早退出
 
+> [!TIP]
 > Shell 编程和其他编程语言一样，是个很深的主题；<br>
 > 但我们要提醒你：bash 的「坑」尤其多，多到已经有 [不止一个网站](https://tldp.org/LDP/abs/html/gotchas.html) 专门整理 [这些问题](https://mywiki.wooledge.org/BashPitfalls) 。<br>
 > 我们强烈建议你在写脚本时大量使用 [shellcheck](https://www.shellcheck.net/) 。<br>

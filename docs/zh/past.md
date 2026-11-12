@@ -5,7 +5,7 @@ description: >
   往期课程
 ---
 
-{% comment %} pop to remove default "posts" collection {% endcomment %}
+<!-- {% comment %} pop to remove default "posts" collection {% endcomment %} -->
 {% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
 <ul>
 {% for collection in sorted_collections %}

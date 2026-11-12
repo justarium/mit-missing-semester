@@ -16,20 +16,20 @@ subtitle: IAP 2026
 
 如今（2026），AI 增强工具和工作流程的引入正在使软件工程领域发生翻天覆地的变化。如果能够使用得当，这些AI工具通常可以为计算机科学从业者带来显著的好处，是一种值得学习掌握的实用技术。由于 AI 是跨领域的通用技术，因此我们并没有独立的 AI 讲座；相反，我们将最新的 AI 工具和技术直接融入到每个讲座中。
 
-关于 [开设此课程的动机](/about/)。
+关于 [开设此课程的动机](about.md)。
 
-{% comment %}
+<!-- {% comment %}
 
 # Registration
 
 Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
-{% endcomment %}
+{% endcomment %} -->
 
 # 课程安排
 
 ## 2026年课程
 
-<ul>
+<!-- <ul>
 {% assign lectures = site['2026'] | sort: 'date' %}
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
@@ -43,10 +43,20 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
         </li>
     {% endif %}
 {% endfor %}
-</ul>
+</ul> -->
+
+*   **1/12/26**: [课程概览 + Shell 入门](2026/course-shell.md)
+*   **1/13/26**: [命令行环境](2026/command-line-environment.md)
+*   **1/14/26**: [开发环境与工具](2026/development-environment.md)
+*   **1/15/26**: [Debugging and Profiling](2026/debugging-profiling.md)
+*   **1/16/26**: [Version Control and Git](2026/version-control.md)
+*   **1/20/26**: [Packaging and Shipping Code](2026/shipping-code.md)
+*   **1/21/26**: [智能体编程](2026/agentic-coding.md)
+*   **1/22/26**: [不止于代码](2026/beyond-code.md)
+*   **1/23/26**: [代码质量](2026/code-quality.md)
 
 ## 2020年课程
-
+<!-- 
 <ul>
 {% assign lectures = site['2020'] | sort: 'date' %}
 {% for lecture in lectures %}
@@ -61,7 +71,19 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
         </li>
     {% endif %}
 {% endfor %}
-</ul>
+</ul> -->
+
+*   **1/13**: [课程概览与 shell](2020/course-shell.md)
+*   **1/14**: [Shell 工具和脚本](2020/shell-tools.md)
+*   **1/15**: [编辑器 (Vim)](2020/editors.md)
+*   **1/16**: [数据整理](2020/data-wrangling.md)
+*   **1/21**: [命令行环境](2020/command-line.md)
+*   **1/22**: [版本控制(Git)](2020/version-control.md)
+*   **1/23**: [调试及性能分析](2020/debugging-profiling.md)
+*   **1/27**: [元编程](2020/metaprogramming.md)
+*   **1/28**: [安全和密码学](2020/security.md)
+*   **1/29**: [大杂烩](2020/potpourri.md)
+*   **1/30**: [提问&回答](2020/qa.md)
 
 讲座视频可以在 [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L) (2026) 或 [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) (2020) 上找到。
 

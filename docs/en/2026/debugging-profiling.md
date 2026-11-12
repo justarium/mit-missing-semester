@@ -18,6 +18,7 @@ A golden rule in programming is that code does not do what you expect it to do, 
 
 ## Printf Debugging and Logging
 
+> [!TIP]
 > "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
 
 A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
@@ -36,6 +37,7 @@ log statements before removing them. This way, if similar bugs occur
 in the future, you'll already have the diagnostic information you need
 without modifying the code.
 
+> [!TIP]
 > **Third-party logs**: Many programs support the `-v` or `--verbose` flag to print more information when they run. This can be useful for discovering why a given command fails. Some even allow repeating the flag for more details. When debugging issues with services (databases, web servers, etc.), check their logs—often in `/var/log/` on Linux. Use `journalctl -u <service>` to view logs for systemd services. For third-party libraries, check if they support debug logging via environment variables or configuration.
 
 ## Debuggers
@@ -64,6 +66,7 @@ Some useful GDB commands:
 - `bt` - Show backtrace (call stack)
 - `watch {expression}` - Break when the value changes
 
+> [!TIP]
 > Consider using GDB's TUI mode (`gdb -tui` or press `Ctrl-x a` inside GDB) for a split-screen view showing source code alongside the command prompt.
 
 ### Record-Replay Debugging
@@ -104,8 +107,10 @@ This is incredibly powerful for debugging. Say you have a crash—instead of gue
 - Crashes that are hard to reproduce
 - Any bug where you wish you could "go back in time"
 
+> [!TIP]
 > Note: rr only works on Linux and requires hardware performance counters. It doesn't work in VMs that don't expose these counters, such as on most AWS EC2 instances, and it doesn't support GPU access. For macOS, check out [Warpspeed](https://warpspeed.dev/).
 
+> [!TIP]
 > **rr and concurrency**: Because rr records execution deterministically, it serializes thread scheduling. This means some race conditions may not manifest under rr if they depend on specific timing. rr is still useful for debugging races—once you capture a failing run, you can replay it reliably—but you may need multiple recording attempts to catch an intermittent bug. For bugs that don't involve concurrency, rr shines brightest: you can always reproduce the exact execution and use reverse debugging to hunt down corruption.
 
 ## System Call Tracing
@@ -133,8 +138,10 @@ strace -p <PID>
 strace -T ./my_program
 ```
 
+> [!TIP]
 > On macOS and BSD, use [`dtruss`](https://www.manpagez.com/man/1/dtruss/) (which wraps `dtrace`) for similar functionality:
 
+> [!TIP]
 > For deeper dives into `strace`, check out Julia Evans' excellent [strace zine](https://jvns.ca/strace-zine-unfolded.pdf).
 
 ### bpftrace and eBPF
@@ -232,6 +239,7 @@ Large language models have become surprisingly useful debugging assistants. They
 
 - **Analyzing crash dumps and stack traces**: Paste a stack trace and ask what might have caused it.
 
+> [!TIP]
 > **Note on debug symbols**: For meaningful stack traces and debugging, ensure your binaries (and any linked libraries) are compiled with debug symbols (`-g` flag). Debug information is typically stored in DWARF format. Additionally, compiling with frame pointers (`-fno-omit-frame-pointer`) makes stack traces more reliable, especially for profiling tools. Without these, stack traces may show only memory addresses or be incomplete. This matters more for natively compiled programs (C++, Rust) than Python or Java.
 
 **Limitations to keep in mind:**
@@ -240,6 +248,7 @@ Large language models have become surprisingly useful debugging assistants. They
 - Always verify suggestions with actual debugging tools
 - They work best as a complement to, not replacement for, understanding your code
 
+> [!TIP]
 > This is distinct from the [general AI coding capabilities](/2026/development-environment/#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
 
 # Profiling
@@ -347,6 +356,7 @@ perf record -g ./my_program
 perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
 ```
 
+> [!TIP]
 > Consider using [Speedscope](https://www.speedscope.app/) for an interactive web-based flame graph viewer, or [Perfetto](https://perfetto.dev/) for comprehensive system-level analysis.
 
 ### Valgrind's Callgrind: the tracing profiler
@@ -364,6 +374,7 @@ kcachegrind callgrind.out.<pid>
 
 Callgrind is slower than sampling profilers but provides precise call counts and can optionally simulate cache behavior (with `--cache-sim=yes`) if you need that information.
 
+> [!TIP]
 > If you're using a particular language, there may be more specialized profilers. For example, Python has [`cProfile`](https://docs.python.org/3/library/profile.html) and [`py-spy`](https://github.com/benfred/py-spy), Go has [`go tool pprof`](https://pkg.go.dev/cmd/pprof), and Rust has [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph) (which actually works for any compiled program!).
 
 ## Memory Profilers
@@ -381,6 +392,7 @@ ms_print massif.out.<pid>
 
 This shows you heap usage over time, helping identify memory leaks and excessive allocation.
 
+> [!TIP]
 > For Python, [`memory-profiler`](https://pypi.org/project/memory-profiler/) provides line-by-line memory usage information.
 
 ## Benchmarking
@@ -402,6 +414,7 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
+> [!TIP]
 > For web development, browser developer tools include excellent profilers. See the [Firefox Profiler](https://profiler.firefox.com/docs/) and [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) documentation.
 
 # Exercises

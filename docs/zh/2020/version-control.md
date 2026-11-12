@@ -190,7 +190,7 @@ Git 处理这些场景的方法是使用一种叫做 “暂存区（staging area
 
 ## 基础
 
-{% comment %}
+<!-- {% comment %}
 
 The `git init` command initializes a new Git repository, with repository
 metadata being stored in the `.git` directory:
@@ -341,7 +341,7 @@ index 94bab17..f0013b2 100644
  +another line
 ```
 
-{% endcomment %}
+{% endcomment %} -->
 
 - `git help <command>`: 获取 git 命令的帮助信息
 - `git init`: 创建一个新的 git 仓库，其数据会存放在一个名为 `.git` 的目录下
@@ -358,7 +358,7 @@ index 94bab17..f0013b2 100644
 
 ## 分支和合并
 
-{% comment %}
+<!-- {% comment %}
 
 Branching allows you to "fork" version history. It can be helpful for working
 on independent features or bug fixes in parallel. The `git branch` command can
@@ -369,7 +369,7 @@ Merging is the opposite of branching: it allows you to combine forked version
 histories, e.g. merging a feature branch back into master. The `git merge`
 command is used for merging.
 
-{% endcomment %}
+{% endcomment %} -->
 
 - `git branch`: 显示分支
 - `git branch <name>`: 创建分支
