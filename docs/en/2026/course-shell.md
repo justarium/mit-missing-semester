@@ -52,7 +52,7 @@ Science curricula.
 ## Class structure
 
 The not-for-credit class consists of nine 1-hour lectures, each one
-centering on a [particular topic](/2026/). The lectures are largely
+centering on a [particular topic](index.md). The lectures are largely
 independent, though as the semester goes on we will presume that you are
 familiar with the content from the earlier lectures. We have lecture
 notes online, but there may be content covered in class (e.g. in the
@@ -314,7 +314,7 @@ in `file`. This one deserves slightly more attention as it's both _very_
 useful and sports a wider array of features than one may expect.
 `pattern` is actually a _regular expression_ which can express very
 complex patterns --- we'll [cover
-those](/2026/code-quality/#regular-expressions)
+those](code-quality.md#regular-expressions)
 in the code quality lecture. You can also specify a directory instead of a
 file (or leave it off for `.`) and pass `-r` to recursively search all
 the files in a directory.

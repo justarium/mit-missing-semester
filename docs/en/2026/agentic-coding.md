@@ -13,7 +13,7 @@ video:
 
 Coding agents are conversational AI models with access to tools such as reading/writing files, web search, and invoking shell commands. They live either in the IDE or in standalone command-line or GUI tools. Coding agents are highly autonomous and powerful tools, enabling a wide variety of use cases.
 
-This lecture builds on the AI-powered development material from the [Development Environment and Tools](development-environment.md) lecture. As a quick demo, let's continue with the example from the [AI-powered development](/2026/development-environment/#ai-powered-development) section:
+This lecture builds on the AI-powered development material from the [Development Environment and Tools](development-environment.md) lecture. As a quick demo, let's continue with the example from the [AI-powered development](development-environment.md#ai-powered-development) section:
 
 ```python
 from urllib.request import urlopen
@@ -90,7 +90,7 @@ Can prompt coding agent with:
 
 Get it to commit the changes.
 {% endcomment %} -->
-- **Refactoring.** You can use coding agents to refactor code in various ways, from simple tasks like renaming a method (this kind of refactoring is also supported by [code intelligence](/2026/development-environment/#code-intelligence-and-language-servers)) to more complex tasks like breaking out functionality into a separate module.
+- **Refactoring.** You can use coding agents to refactor code in various ways, from simple tasks like renaming a method (this kind of refactoring is also supported by [code intelligence](development-environment.md#code-intelligence-and-language-servers)) to more complex tasks like breaking out functionality into a separate module.
     > We used Claude Code to [split](https://github.com/missing-semester/missing-semester/pull/344) agentic coding into its own lecture.
 <!-- {%- comment %}
 Show usage in Missing Semester, point out that the agent did make some mistakes.

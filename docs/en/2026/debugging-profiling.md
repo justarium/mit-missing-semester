@@ -249,7 +249,7 @@ Large language models have become surprisingly useful debugging assistants. They
 - They work best as a complement to, not replacement for, understanding your code
 
 > [!TIP]
-> This is distinct from the [general AI coding capabilities](/2026/development-environment/#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
+> This is distinct from the [general AI coding capabilities](development-environment.md#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
 
 ## Profiling
 

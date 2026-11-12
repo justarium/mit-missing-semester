@@ -13,7 +13,7 @@ video:
 
 编程智能体是具有工具访问能力的对话式 AI 模型，可以读写文件、搜索网页、执行 Shell 命令等。它们可以运行在 IDE 中，也可以作为独立的命令行或 GUI 工具使用。编程智能体高度自主且功能强大，能支持广泛的应用场景。
 
-本节在[开发环境与工具](development-environment.md)中 AI 辅助开发内容的基础上展开。作为快速演示，继续使用[AI 辅助开发](/2026/development-environment/#ai-powered-development)一节的示例：
+本节在[开发环境与工具](development-environment.md)中 AI 辅助开发内容的基础上展开。作为快速演示，继续使用[AI 辅助开发](development-environment.md#ai-powered-development)一节的示例：
 
 ```python
 from urllib.request import urlopen
@@ -90,7 +90,7 @@ Can prompt coding agent with:
 
 Get it to commit the changes.
 {% endcomment %} -->
-- **重构代码。** 你可以用智能体以各种方式重构代码，从简单任务如重命名方法（这类重构也受[代码智能](/2026/development-environment/#code-intelligence-and-language-servers)支持）到更复杂的任务如把功能拆分到独立模块中。
+- **重构代码。** 你可以用智能体以各种方式重构代码，从简单任务如重命名方法（这类重构也受[代码智能](development-environment.md#code-intelligence-and-language-servers)支持）到更复杂的任务如把功能拆分到独立模块中。
     > 我们使用 Claude Code 将 agentic coding [拆分](https://github.com/missing-semester/missing-semester/pull/344)成了独立的课程。
 <!-- {%- comment %}
 Show usage in Missing Semester, point out that the agent did make some mistakes.

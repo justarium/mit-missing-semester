@@ -30,7 +30,7 @@ video:
 
 有些工具如 Prettier [高度可配置](https://prettier.io/docs/configuration)；你应该把配置文件一并提交到项目的[版本控制](version-control.md)中。另一些如 [Black](https://github.com/psf/black) 和 [gofmt](https://pkg.go.dev/cmd/gofmt) 配置项有限或完全不可配置，以减少[自行车棚问题](https://en.wikipedia.org/wiki/Law_of_triviality)。
 
-可以为代码格式化器配置 [IDE 集成](/2026/development-environment/#code-intelligence-and-language-servers)，让代码在输入时或保存文件时自动格式化。也可以在项目中加入 [EditorConfig](https://editorconfig.org/) 文件，向 IDE 传达某些项目级设置，如不同文件类型的缩进大小。
+可以为代码格式化器配置 [IDE 集成](development-environment.md#code-intelligence-and-language-servers)，让代码在输入时或保存文件时自动格式化。也可以在项目中加入 [EditorConfig](https://editorconfig.org/) 文件，向 IDE 传达某些项目级设置，如不同文件类型的缩进大小。
 
 ## Lint
 
@@ -68,7 +68,7 @@ Git 的 pre-commit [钩子](https://git-scm.com/book/en/v2/Customizing-Git-Git-H
 
 ## 持续集成
 
-[GitHub Actions](https://github.com/features/actions) 这样的持续集成（CI, Continuous Integration）服务可以在你每次推送代码时（或每次 pull request 时，或按计划）运行脚本。开发者通常用 CI 运行各种代码质量工具，包括格式化器、linter 和测试。编译型语言可以确保代码能编译；静态类型语言可以确保类型检查通过。每次推送新提交时运行 CI 能捕获引入主分支的错误；在 pull request 上运行能发现贡献者提交中的问题；按计划运行能发现外部依赖的问题（比如某个开发者意外发布了一个与 [semver-compatible](/2026/shipping-code/#releases--versioning) 声称兼容但实际破坏行为的变更）。
+[GitHub Actions](https://github.com/features/actions) 这样的持续集成（CI, Continuous Integration）服务可以在你每次推送代码时（或每次 pull request 时，或按计划）运行脚本。开发者通常用 CI 运行各种代码质量工具，包括格式化器、linter 和测试。编译型语言可以确保代码能编译；静态类型语言可以确保类型检查通过。每次推送新提交时运行 CI 能捕获引入主分支的错误；在 pull request 上运行能发现贡献者提交中的问题；按计划运行能发现外部依赖的问题（比如某个开发者意外发布了一个与 [semver-compatible](shipping-code.md#releases--versioning) 声称兼容但实际破坏行为的变更）。
 
 由于 CI 脚本在开发者机器之外独立运行，方便运行耗时较长的任务。比如在不同操作系统和不同编程语言版本上运行测试 _矩阵_，确保软件在所有环境中都能正常工作。
 

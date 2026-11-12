@@ -1,5 +1,5 @@
 ---
-layout: lecture
+layout: solution
 title: "Solutions"
 ---
 
