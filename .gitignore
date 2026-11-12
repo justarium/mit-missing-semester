@@ -3,3 +3,12 @@
 
 # linux
 *~
+
+# python
+__pycache__/
+__pypackages__/
+*.py[cod]
+.venv/
+
+# mkdocs
+site/
